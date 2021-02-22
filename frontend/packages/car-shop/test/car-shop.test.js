@@ -2,7 +2,7 @@ import { html, fixture, expect } from '@open-wc/testing';
 
 import '../__element-definitions/car-shop.js';
 
-describe('IngCarShop', () => {
+describe('CarShop', () => {
   it('has a default title "Hello, ing-web user!"', async () => {
     const el = await fixture(html`<car-shop></car-shop>`);
 
