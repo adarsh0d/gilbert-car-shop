@@ -8,7 +8,7 @@ import {
   spacer64,
 } from 'ing-web';
 
-export class IngCarShop extends ScopedElementsMixin(LitElement) {
+export class CarShop extends ScopedElementsMixin(LitElement) {
 
   static get properties() {
     return {

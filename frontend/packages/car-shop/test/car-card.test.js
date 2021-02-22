@@ -2,7 +2,7 @@ import { html, fixture, expect } from '@open-wc/testing';
 
 import '../__element-definitions/car-card.js';
 
-const sampleCar = {
+const licensedCar = {
   "_id": 1,
   "make": "Volkswagen",
   "model": "Jetta III",
@@ -11,11 +11,20 @@ const sampleCar = {
   "licensed": true,
   "date_added": "2018-09-18"
 };
+const unLicensedCar = {
+  "_id": 4,
+  "make": "Saab",
+  "model": "900",
+  "year_model": 1987,
+  "price": 8771.0,
+  "licensed": false,
+  "date_added": "2017-12-01"
+};
 let el;
-describe('CarCard', () => {
+describe('Licensed Car', () => {
   before(async () => {
     // runs before all tests in this block
-    el = await fixture(html`<car-card data=${sampleCar}></car-card>`);
+    el = await fixture(html`<car-card .data=${licensedCar}></car-card>`);
   });
   it('has car make', () => {
     const carMakeEl = el.shadowRoot.querySelector('.car__make');
@@ -42,8 +51,24 @@ describe('CarCard', () => {
     expect(carDateEl.innerText).to.equal('2018-09-18');
   });
 
-  it('is accessible', async () => {
-    const el = await fixture(html`<car-card></car-card>`);
-    await expect(el).to.be.accessible();
+  it('has car license information', () => {
+    const carLicensedEl = el.shadowRoot.querySelector('.car__licensed');
+    expect(carLicensedEl.innerText).to.equal('Licensed');
+  });
+
+  it('is accessible', () => {
+     expect(el).to.be.accessible();
   });
 });
+
+describe('Unlicensed car', () => {
+  it('has car license information', async () => {
+    el = await fixture(html`<car-card .data=${unLicensedCar}></car-card>`);
+    const carLicensedEl = el.shadowRoot.querySelector('.car__licensed');
+    expect(carLicensedEl.innerText).to.equal('Unlicensed');
+  });
+  it('is accessible', async () => {
+    el = await fixture(html`<car-card .data=${unLicensedCar}></car-card>`);
+    await expect(el).to.be.accessible();
+  });
+})
