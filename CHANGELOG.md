@@ -1,4 +1,4 @@
 # Changelog
 
-**1.0**
+**v1.0**
 - feat: List all cars across all warehouses

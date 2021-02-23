@@ -1,8 +1,14 @@
 import { html, fixture, expect } from '@open-wc/testing';
 
-import '../__element-definitions/car-card.js';
+import '../__element-definitions/car-details.js';
 
-const licensedCar = {
+const car = {
+  "location": {
+    "name": "West wing",
+    "warehouse": "Warehouse A",
+    "lat": "47.13111",
+    "long": "-61.54801"
+  },
   "make": "Volkswagen",
   "model": "Jetta III",
   "yearModel": 1995,
@@ -10,36 +16,23 @@ const licensedCar = {
   "licensed": true,
   "dateAdded": "2018-09-18"
 };
-const unLicensedCar = {
-  "make": "Saab",
-  "model": "900",
-  "yearModel": 1987,
-  "price": 8771.0,
-  "licensed": false,
-  "dateAdded": "2017-12-01"
-};
 let el;
-describe('Licensed Car', () => {
+describe('Car Details Popup', () => {
   before(async () => {
     // runs before all tests in this block
-    el = await fixture(html`<car-card .data=${licensedCar}></car-card>`);
+    el = await fixture(html`<car-details .data=${car}></car-details>`);
   });
 
-  if('should elevate the card', () => {
-    const cardEl = el.shadowRoot.querySelector('.card');
-    expect(cardEl.classList.containes('.card--licensed')).to.equal(true);
-    expect(cardEl.classList.containes('.card--unlicensed')).to.equal(false);
+  it('has car warehouse', () => {
+    const carWarehouseEl = el.shadowRoot.querySelector('.car__warehouse');
+    expect(carWarehouseEl.innerText).to.equal('Warehouse A');
+    expect(carWarehouseEl.getAttribute('title')).to.equal('Warehouse A');
   });
-
-  if('should call the showCarDetails function', () => {
-    const cardEl = el.shadowRoot.querySelector('.card');
-    const showCarDetailsStub = sinon.stub(el, 'showCarDetails');
-    el.requestUpdate();
-    await el.updateComplete;
-    cardEl.click();
-    expect(showCarDetailsStub).to.have.callCount(1);
+  it('has car location', () => {
+    const carLocationEl = el.shadowRoot.querySelector('.car__location');
+    expect(carLocationEl.innerText).to.equal('West wing');
+    expect(carLocationEl.getAttribute('title')).to.equal('West wing');
   });
-
   it('has car make', () => {
     const carMakeEl = el.shadowRoot.querySelector('.car__make');
     expect(carMakeEl.innerText).to.equal('Volkswagen');
@@ -80,21 +73,3 @@ describe('Licensed Car', () => {
      expect(el).to.be.accessible();
   });
 });
-
-describe('Unlicensed car', () => {
-  it('has car license information', async () => {
-    el = await fixture(html`<car-card .data=${unLicensedCar}></car-card>`);
-    const carLicensedEl = el.shadowRoot.querySelector('.car__licensed');
-    expect(carLicensedEl.innerText).to.equal('Unlicensed');
-    expect(carLicensedEl.getAttribute('title')).to.equal('Unlicensed');
-  });
-  it('is accessible', async () => {
-    el = await fixture(html`<car-card .data=${unLicensedCar}></car-card>`);
-    await expect(el).to.be.accessible();
-  });
-  if('should noy elevate the card', () => {
-    const cardEl = el.shadowRoot.querySelector('.card');
-    expect(cardEl.classList.containes('.card--unlicensed')).to.equal(true);
-    expect(cardEl.classList.containes('.card--licensed')).to.equal(false);
-  });
-})
