@@ -24,14 +24,14 @@ export class CarCard extends LitElement {
     return html`
         <article class="card car-card">
           <section class="card__content">
-              <h2 class="car__make">${car.make}</h2>
-              <p class="car__model">${car.model}</p>
-              <p class="car__year-model">${car.year_model}</p>
-              <p class="car__price">$${car.price}</p>
-              <p class="car__date-added">${car.date_added}</p>
+              <h2 class="car__make" title=${car.make}>${car.make}</h2>
+              <p class="car__model" title=${car.model}>${car.model}</p>
+              <p class="car__year-model" title=${car.year_model}>${car.year_model}</p>
+              <p class="car__price" title=$${car.price}>$${car.price}</p>
+              <p class="car__date-added" title=${car.date_added}>${car.date_added}</p>
           </section>
           <section class="card__footer ${car.licensed ? `card__footer--licensed`: `card__footer--unlicensed`}">
-            <p class="car__licensed">${car.licensed ? `Licensed` : `Unlicensed`}</p>
+            <p class="car__licensed" title=${car.licensed ? `Licensed` : `Unlicensed`}>${car.licensed ? `Licensed` : `Unlicensed`}</p>
           </section
         </article>
     `;

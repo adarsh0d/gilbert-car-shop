@@ -12,14 +12,14 @@ describe('Cars List', () => {
 
   it('renders list of cars', async () => {
     const el = await fixture(html`<cars-list .cars=${cars}></cars-list>`);
-    const carElements = el.shadowRoot.querySelectorAll('car-card')
+    const carElements = el.shadowRoot.querySelectorAll('li')
     expect(carElements.length).to.equal(4);
   });
 
   it('renders cars in ascending date order', async () => {
     const el = await fixture(html`<cars-list .cars=${cars}></cars-list>`);
-    const firstCarEl = el.shadowRoot.querySelector('car-card:first-child');
-    const lastCarEl = el.shadowRoot.querySelector('car-card:last-child');
+    const firstCarEl = el.shadowRoot.querySelector('li:first-child');
+    const lastCarEl = el.shadowRoot.querySelector('li:last-child');
     expect(firstCarEl.getAttribute('id')).to.equal("2");
     expect(lastCarEl.getAttribute('id')).to.equal("3");
   });

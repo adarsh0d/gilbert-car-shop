@@ -25,15 +25,18 @@ export class CarsList extends LitElement {
     //sorting data here
     const sortedCarsByDate = this.cars.sort((a, b) => new Date(a.date_added).getTime() > new Date(b.date_added).getTime() ? 1: -1);
     return html`
-      <section class="row">
-        ${sortedCarsByDate.map((car) => html`<car-card class="col-3" id=${car?._id} .data=${car}></car-card>`)}
-      </section>
+      <ol class="row">
+        ${sortedCarsByDate.map((car) => html`<li class="col-3" id=${car?._id}><car-card .data=${car}></car-card></li>`)}
+      </ol>
     `;
   }
 
   static get styles() {
     return css`
       ${gridComponentStyle}
+      ol {
+        list-style: none;
+      }
     `;
   }
 }
