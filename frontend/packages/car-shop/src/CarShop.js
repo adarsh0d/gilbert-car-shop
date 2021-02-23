@@ -7,35 +7,36 @@ import {
   ScopedElementsMixin,
   spacer64,
 } from 'ing-web';
+import { cars } from '../test/cars';
 
 export class CarShop extends ScopedElementsMixin(LitElement) {
-
-  static get properties() {
-    return {
-      title: { type: String },
-    };
-  }
-
   constructor() {
     super();
-    this.title = 'Hello, ing-web user!';
+    this.cars = cars;
+  }
+
+  async connectedCallback() {
+    super.connectedCallback();
+    //this.cars = await this._fetchData();
+  }
+
+  async _fetchData() {
+    let data = [];
+    const response = await fetch('/search/cars');
+    if(response) {
+      data = await response.json();
+    }
+    return data;
   }
 
   render() {
     return html`
-      <div class="page-container">
-        <div class="card intro">
-          <div class="card__content">
-            <h2>${this.title}</h2>
-            <p>
-              This scaffold was made using
-              <a href="https://gitlab.ing.net/TheGuideComponents/create-ing-web" class="link"
-                >create-ing-web</a
-              >
-            </p>
-          </div>
-        </div>
-      </div>
+      <main class="page-container">
+        <header class="header">
+          <h1 class="header__title">Gilbert car shop</h1>
+        </header>
+        <cars-list .cars=${this.cars}></cars>
+      </main>
     `;
   }
 
