@@ -1,25 +1,26 @@
 import { html, fixture, expect } from '@open-wc/testing';
+import sinon from 'sinon';
 
 import '../__element-definitions/car-shop.js';
+import { cars } from './cars.js';
+
 
 describe('CarShop', () => {
-  it('has a default title "Hello, ing-web user!"', async () => {
+  afterEach(() => {
+    sinon.restore();
+  })
+  it('has a default title "Gilbert car shop"', async () => {
     const el = await fixture(html`<car-shop></car-shop>`);
-
-    expect(el.title).to.equal('Hello, ing-web user!');
+    const pageTitleEl = el.shadowRoot.querySelector('.header__title')
+    expect(pageTitleEl.innerText).to.equal('Gilbert car shop');
   });
 
-  it('accepts title overrides via attribute', async () => {
-    const el = await fixture(html`<car-shop title="Alternative title"></car-shop>`);
-
-    expect(el.title).to.equal('Alternative title');
-  });
-
-  it('renders the title', async () => {
-    const el = await fixture(html`<car-shop title="Alternative title"></car-shop>`);
-    const titleEl = el.shadowRoot.querySelector('.card__content').firstElementChild;
-
-    expect(titleEl).dom.to.equal(`<h2>Alternative title</h2>`);
+  it('should fetch for cars', async() => {
+    const el = await fixture(html`<car-shop></car-shop>`);
+    const response = { ok: true, json: () => new Promise((resolve, reject) => resolve(cars)) };
+    const fetchStub = sinon.stub(window, 'fetch').resolves(response);
+    el.connectedCallback();
+    expect(fetchStub.calledWith('/search/cars')).to.equal(true);
   });
 
   it('is accessible', async () => {

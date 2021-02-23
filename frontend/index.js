@@ -1,3 +1,5 @@
-import { CarShop } from './packages/car-shop/src/CarShop.js';
+import { CarShop, CarsList, CarCard } from './packages/car-shop';
 
 customElements.define('car-shop', CarShop);
+customElements.define('cars-list', CarsList);
+customElements.define('car-card', CarCard);

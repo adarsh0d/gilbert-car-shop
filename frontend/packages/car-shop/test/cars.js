@@ -1,90 +1,70 @@
-export const cars =    [
+export const cars = [
   {
-    "_id": "1",
-    "name": "Warehouse A",
+    "id": 1,
     "location": {
+      "name": "West wing",
+      "warehouse": "Warehouse A",
       "lat": "47.13111",
       "long": "-61.54801"
     },
-    "cars": {
-      "location": "West wing",
-      "vehicles": [
-        {
-          "_id": 1,
-          "make": "Volkswagen",
-          "model": "Jetta III",
-          "year_model": 1995,
-          "price": 12947.52,
-          "licensed": true,
-          "date_added": "2018-09-18"
-        }
-      ]
+    "carInfo": {
+      "make": "Volkswagen",
+      "model": "Jetta III",
+      "yearModel": 1995,
+      "price": 12947.52,
+      "licensed": true,
+      "datedded": "2018-09-18"
     }
   },
   {
-    "_id": "2",
-    "name": "Warehouse B",
+    "id": 2,
     "location": {
+      "name": "East wing",
+      "warehouse": "Warehouse B",
       "lat": "15.95386",
       "long": "7.06246"
     },
-    "cars": {
-      "location": "East wing",
-      "vehicles": [
-        {
-          "_id": 2,
-          "make": "Maserati",
-          "model": "Coupe",
-          "year_model": 2005,
-          "price": 19957.71,
-          "licensed": false,
-          "date_added": "2017-11-14"
-        }
-      ]
+    "carInfo": {
+      "make": "Maserati",
+      "model": "Coupe",
+      "yearModel": 2005,
+      "price": 19957.71,
+      "licensed": false,
+      "datedded": "2017-11-14"
     }
   },
   {
-    "_id": "3",
-    "name": "Warehouse C",
+    "id": 3,
     "location": {
+      "name": "Suid wing",
+      "warehouse": "Warehouse C",
       "lat": "39.12788",
       "long": "-2.71398"
     },
-    "cars": {
-      "location": "Suid wing",
-      "vehicles": [
-        {
-          "_id": 3,
-          "make": "Cadillac",
-          "model": "Escalade",
-          "year_model": 2005,
-          "price": 7429.18,
-          "licensed": true,
-          "date_added": "2018-09-26"
-        }
-      ]
+    "carInfo": {
+      "make": "Cadillac",
+      "model": "Escalade",
+      "yearModel": 2005,
+      "price": 7429.18,
+      "licensed": true,
+      "datedded": "2018-09-26"
     }
   },
   {
-    "_id": "4",
-    "name": "Warehouse D",
+    "id": 4,
     "location": {
+      "name": "Suid wing",
+      "warehouse": "Warehouse A",
       "lat": "-70.84354",
       "long": "132.22345"
     },
-    "cars": {
-      "location": "Suid wing",
-      "vehicles": [
-        {
-          "_id": 4,
-          "make": "Saab",
-          "model": "900",
-          "year_model": 1987,
-          "price": 8771.0,
-          "licensed": false,
-          "date_added": "2017-12-01"
-        }
-      ]
+    "carInfo": {
+      "make": "Saab",
+      "model": "900",
+      "yearModel": 1987,
+      "price": 8771.0,
+      "licensed": false,
+      "datedded": "2017-12-01"
     }
   }
 ];

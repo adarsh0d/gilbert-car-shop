@@ -2,51 +2,73 @@ import {
   cardComponentStyle,
   css,
   html,
-  linkComponentStyle,
+  elevation1Mixin,
   LitElement,
   ScopedElementsMixin,
+  spacer32,
   spacer64,
+  white,
+  registerDefaultIconsets
 } from 'ing-web';
 
-export class IngCarShop extends ScopedElementsMixin(LitElement) {
+import { CarsList } from './CarsList';
 
-  static get properties() {
+registerDefaultIconsets();
+export class CarShop extends ScopedElementsMixin(LitElement) {
+  static get scopedElements() {
     return {
-      title: { type: String },
+      'cars-list': CarsList
     };
   }
-
   constructor() {
     super();
-    this.title = 'Hello, ing-web user!';
+    this.cars = [];
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this._fetchData();
+  }
+
+  async _fetchData() {
+    const response = await fetch('/search/cars');
+    if (response.ok) {
+      this.cars = await response.json();
+      this.requestUpdate();
+    } else {
+      console.log('Error fetching data!')
+    }
   }
 
   render() {
     return html`
       <div class="page-container">
-        <div class="card intro">
-          <div class="card__content">
-            <h2>${this.title}</h2>
-            <p>
-              This scaffold was made using
-              <a href="https://gitlab.ing.net/TheGuideComponents/create-ing-web" class="link"
-                >create-ing-web</a
-              >
-            </p>
-          </div>
-        </div>
+        <header class="header">
+          <h1 class="header__title">Gilbert car shop</h1>
+        </header>
+        <main class="content">
+          <cars-list .cars=${this.cars}></cars-list>
+        </main>
       </div>
     `;
   }
 
   static get styles() {
     return css`
-      ${linkComponentStyle}
       ${cardComponentStyle}
-
-      .page-container {
-        text-align: center;
-        margin-top: ${spacer64};
+      .header {
+        background-color: ${white};
+        height: ${spacer64};
+        min-height: ${spacer64};
+        padding: 10px;
+        box-sizing: border-box;
+        ${elevation1Mixin()}
+      }
+      .header h1 {
+        margin: 0;
+      }
+      .content {
+        margin: ${spacer32} ${spacer32}
       }
 
       .intro {
@@ -56,3 +78,4 @@ export class IngCarShop extends ScopedElementsMixin(LitElement) {
     `;
   }
 }
+
