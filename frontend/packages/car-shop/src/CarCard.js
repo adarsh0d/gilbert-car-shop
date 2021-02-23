@@ -24,11 +24,17 @@ export class CarCard extends LitElement {
     return html`
         <article class="card car-card">
           <section class="card__content">
-              <h2 class="car__make" title=${car.make}>${car.make}</h2>
-              <p class="car__model" title=${car.model}>${car.model}</p>
-              <p class="car__year-model" title=${car.yearModel}>${car.yearModel}</p>
-              <p class="car__price" title=$${car.price}>$${car.price}</p>
-              <p class="car__date-added" title=${car.dateAdded}>${car.dateAdded}</p>
+            <h2 class="car__make" title=${car.make}>${car.make}</h2>
+            <dl>
+              <dt>Model</dt>
+              <dd class="car__model" title=${car.model}>${car.model}</dd>
+              <dt>Year Model</dt>
+              <dd class="car__year-model" title=${car.yearModel}>${car.yearModel}</dd>
+              <dt>Price</dt>
+              <dd class="car__price" title=$${car.price}>$${car.price}</dd>
+              <dt>Date</dt>
+              <dd class="car__date-added" title=${car.dateAdded}>${car.dateAdded}</dd>
+            </dl>
           </section>
           <section class="card__footer ${car.licensed ? `card__footer--licensed`: `card__footer--unlicensed`}">
             <p class="car__licensed" title=${car.licensed ? `Licensed` : `Unlicensed`}>${car.licensed ? `Licensed` : `Unlicensed`}</p>
@@ -40,6 +46,9 @@ export class CarCard extends LitElement {
   static get styles() {
     return css`
       ${cardComponentStyle}
+      .card__footer {
+        text-align: center;
+      }
       .card__footer--licensed {
         background-color: ${leaf30}
       }

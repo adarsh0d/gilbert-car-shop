@@ -65,7 +65,6 @@ export class CarShop extends ScopedElementsMixin(LitElement) {
         margin: 0;
       }
       .content {
-        text-align: center;
         margin: ${spacer32} ${spacer32}
       }
 
