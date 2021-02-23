@@ -3,22 +3,20 @@ import { html, fixture, expect } from '@open-wc/testing';
 import '../__element-definitions/car-card.js';
 
 const licensedCar = {
-  "_id": 1,
   "make": "Volkswagen",
   "model": "Jetta III",
-  "year_model": 1995,
+  "yearModel": 1995,
   "price": 12947.52,
   "licensed": true,
-  "date_added": "2018-09-18"
+  "dateAdded": "2018-09-18"
 };
 const unLicensedCar = {
-  "_id": 4,
   "make": "Saab",
   "model": "900",
-  "year_model": 1987,
+  "yearModel": 1987,
   "price": 8771.0,
   "licensed": false,
-  "date_added": "2017-12-01"
+  "dateAdded": "2017-12-01"
 };
 let el;
 describe('Licensed Car', () => {

@@ -9,7 +9,6 @@ import {
   spacer64,
   white,
 } from 'ing-web';
-import { cars } from '../test/cars';
 import { CarsList } from './CarsList';
 
 export class CarShop extends ScopedElementsMixin(LitElement) {
@@ -20,18 +19,19 @@ export class CarShop extends ScopedElementsMixin(LitElement) {
   }
   constructor() {
     super();
-    this.cars = cars;
+    this.cars = [];
   }
 
   async connectedCallback() {
     super.connectedCallback();
     this.cars = await this._fetchData();
+    this.requestUpdate();
   }
 
   async _fetchData() {
     let data = [];
     const response = await fetch('/search/cars');
-    if(response) {
+    if (response) {
       data = await response.json();
     }
     return data;
@@ -76,3 +76,4 @@ export class CarShop extends ScopedElementsMixin(LitElement) {
     `;
   }
 }
+

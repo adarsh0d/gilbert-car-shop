@@ -7,12 +7,14 @@ export const cars = [
       "lat": "47.13111",
       "long": "-61.54801"
     },
-    "make": "Volkswagen",
-    "model": "Jetta III",
-    "year_model": 1995,
-    "price": 12947.52,
-    "licensed": true,
-    "date_added": "2018-09-18"
+    "carInfo": {
+      "make": "Volkswagen",
+      "model": "Jetta III",
+      "yearModel": 1995,
+      "price": 12947.52,
+      "licensed": true,
+      "dateAdded": "2018-09-18"
+    }
   },
   {
     "_id": 2,
@@ -22,12 +24,14 @@ export const cars = [
       "lat": "15.95386",
       "long": "7.06246"
     },
-    "make": "Maserati",
-    "model": "Coupe",
-    "year_model": 2005,
-    "price": 19957.71,
-    "licensed": false,
-    "date_added": "2017-11-14"
+    "carInfo": {
+      "make": "Maserati",
+      "model": "Coupe",
+      "yearModel": 2005,
+      "price": 19957.71,
+      "licensed": false,
+      "dateAdded": "2017-11-14"
+    }
   },
   {
     "_id": 3,
@@ -37,12 +41,14 @@ export const cars = [
       "lat": "39.12788",
       "long": "-2.71398"
     },
-    "make": "Cadillac",
-    "model": "Escalade",
-    "year_model": 2005,
-    "price": 7429.18,
-    "licensed": true,
-    "date_added": "2018-09-26"
+    "carInfo": {
+      "make": "Cadillac",
+      "model": "Escalade",
+      "yearModel": 2005,
+      "price": 7429.18,
+      "licensed": true,
+      "dateAdded": "2018-09-26"
+    }
   },
   {
     "_id": 4,
@@ -52,11 +58,13 @@ export const cars = [
       "lat": "-70.84354",
       "long": "132.22345"
     },
-    "make": "Saab",
-    "model": "900",
-    "year_model": 1987,
-    "price": 8771.0,
-    "licensed": false,
-    "date_added": "2017-12-01"
+    "carInfo": {
+      "make": "Saab",
+      "model": "900",
+      "yearModel": 1987,
+      "price": 8771.0,
+      "licensed": false,
+      "dateAdded": "2017-12-01"
+    }
   }
 ];
