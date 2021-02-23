@@ -3,12 +3,18 @@ import {
   html,
   LitElement,
   gridComponentStyle,
-  red,
-  spacer32,
-  spacer8,
+  IngNotificationInline,
+  ScopedElementsMixin,
 } from 'ing-web';
+import { CarCard } from './CarCard';
 
-export class CarsList extends LitElement {
+export class CarsList extends ScopedElementsMixin(LitElement) {
+  static get scopedElements() {
+    return {
+      'ing-notification-inline': IngNotificationInline,
+      'car-card': CarCard
+    };
+  }
   static get properties() {
     return {
       cars: { type: Array }
@@ -22,13 +28,13 @@ export class CarsList extends LitElement {
   render() {
     if(!this.cars || !this.cars.length) {
       return html`
-        <p class="no-cars-alert" title="No cars available!">No cars available!</p>
+        <ing-notification-inline type="error" class="no-cars-alert" title="No cars available!">No cars available!</ing-notification-inline>
       `
     }
 
     return html`
       <ol class="row">
-        ${this.cars.map((car) => html`<li class="col col-12 col-@600-9 col-@840-6 col-@1280-3" id=${car?._id}><car-card .data=${car?.carInfo}></car-card></li>`)}
+        ${this.cars.map((car) => html`<li class="col col-12 col-@600-9 col-@840-6 col-@1280-3" id=${car?.id}><car-card .data=${car?.carInfo}></car-card></li>`)}
       </ol>
     `;
   }
@@ -39,12 +45,6 @@ export class CarsList extends LitElement {
       ol {
         list-style: none;
         padding: 0;
-      }
-      .no-cars-alert {
-        background: ${red};
-        margin: ${spacer32};
-        text-align:center;
-        padding: ${spacer8};
       }
     `;
   }

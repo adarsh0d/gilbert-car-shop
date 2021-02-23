@@ -17,9 +17,9 @@ describe('CarShop', () => {
 
   it('should fetch for cars', async() => {
     const el = await fixture(html`<car-shop></car-shop>`);
-    const fetchStub = sinon.stub(window, 'fetch')
+    const response = { ok: true, json: () => new Promise((resolve, reject) => resolve(cars)) };
+    const fetchStub = sinon.stub(window, 'fetch').resolves(response);
     el.connectedCallback();
-    fetchStub.onCall(0).returns(cars);
     expect(fetchStub.calledWith('/search/cars')).to.equal(true);
   });
 

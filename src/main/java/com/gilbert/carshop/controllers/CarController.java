@@ -15,7 +15,6 @@ public class CarController {
 
     @RequestMapping(method=RequestMethod.GET, value="/search/cars")
     public Iterable<Car> car() {
-    	System.out.println(carRepository.getAllCars().get(0).getCarInfo().getMake());
         return carRepository.getAllCars();
     }
 

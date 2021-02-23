@@ -1,6 +1,6 @@
 export const cars = [
   {
-    "_id": 1,
+    "id": 1,
     "location": {
       "name": "West wing",
       "warehouse": "Warehouse A",
@@ -13,11 +13,11 @@ export const cars = [
       "yearModel": 1995,
       "price": 12947.52,
       "licensed": true,
-      "dateAdded": "2018-09-18"
+      "datedded": "2018-09-18"
     }
   },
   {
-    "_id": 2,
+    "id": 2,
     "location": {
       "name": "East wing",
       "warehouse": "Warehouse B",
@@ -30,11 +30,11 @@ export const cars = [
       "yearModel": 2005,
       "price": 19957.71,
       "licensed": false,
-      "dateAdded": "2017-11-14"
+      "datedded": "2017-11-14"
     }
   },
   {
-    "_id": 3,
+    "id": 3,
     "location": {
       "name": "Suid wing",
       "warehouse": "Warehouse C",
@@ -47,11 +47,11 @@ export const cars = [
       "yearModel": 2005,
       "price": 7429.18,
       "licensed": true,
-      "dateAdded": "2018-09-26"
+      "datedded": "2018-09-26"
     }
   },
   {
-    "_id": 4,
+    "id": 4,
     "location": {
       "name": "Suid wing",
       "warehouse": "Warehouse A",
@@ -64,7 +64,7 @@ export const cars = [
       "yearModel": 1987,
       "price": 8771.0,
       "licensed": false,
-      "dateAdded": "2017-12-01"
+      "datedded": "2017-12-01"
     }
   }
 ];

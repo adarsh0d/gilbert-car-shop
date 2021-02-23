@@ -8,9 +8,12 @@ import {
   spacer32,
   spacer64,
   white,
+  registerDefaultIconsets
 } from 'ing-web';
+
 import { CarsList } from './CarsList';
 
+registerDefaultIconsets();
 export class CarShop extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {
     return {
@@ -22,19 +25,19 @@ export class CarShop extends ScopedElementsMixin(LitElement) {
     this.cars = [];
   }
 
-  async connectedCallback() {
+  connectedCallback() {
     super.connectedCallback();
-    this.cars = await this._fetchData();
-    this.requestUpdate();
+    this._fetchData();
   }
 
   async _fetchData() {
-    let data = [];
     const response = await fetch('/search/cars');
-    if (response) {
-      data = await response.json();
+    if (response.ok) {
+      this.cars = await response.json();
+      this.requestUpdate();
+    } else {
+      console.log('Error fetching data!')
     }
-    return data;
   }
 
   render() {
