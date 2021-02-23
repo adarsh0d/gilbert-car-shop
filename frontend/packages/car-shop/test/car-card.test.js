@@ -38,7 +38,7 @@ describe('Licensed Car', () => {
 
   it('has car price', () => {
     const carPriceEl = el.shadowRoot.querySelector('.car__price');
-    expect(carPriceEl.innerText).to.equal('12947.52');
+    expect(carPriceEl.innerText).to.equal('$12947.52');
   });
 
   it('has car year model', () => {

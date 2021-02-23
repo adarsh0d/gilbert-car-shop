@@ -2,12 +2,10 @@ import {
   css,
   html,
   LitElement,
-  ScopedElementsMixin,
+  gridComponentStyle,
 } from 'ing-web';
 
-import './CarCard';
-
-export class CarsList extends ScopedElementsMixin(LitElement) {
+export class CarsList extends LitElement {
   static get properties() {
     return {
       cars: { type: Array }
@@ -27,12 +25,15 @@ export class CarsList extends ScopedElementsMixin(LitElement) {
     //sorting data here
     const sortedCarsByDate = this.cars.sort((a, b) => new Date(a.date_added).getTime() > new Date(b.date_added).getTime() ? 1: -1);
     return html`
-      ${sortedCarsByDate.map((car) => html`<car-card class="car-card" id=${car?._id} .data=${car}></car-card>`)}
+      <section class="row">
+        ${sortedCarsByDate.map((car) => html`<car-card class="col-3" id=${car?._id} .data=${car}></car-card>`)}
+      </section>
     `;
   }
 
   static get styles() {
     return css`
+      ${gridComponentStyle}
     `;
   }
 }

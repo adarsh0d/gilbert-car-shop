@@ -2,12 +2,12 @@ import {
   cardComponentStyle,
   css,
   html,
-  linkComponentStyle,
+  leaf30,
   LitElement,
-  ScopedElementsMixin,
+  red,
 } from 'ing-web';
 
-export class CarCard extends ScopedElementsMixin(LitElement) {
+export class CarCard extends LitElement {
 
   static get properties() {
     return {
@@ -24,17 +24,13 @@ export class CarCard extends ScopedElementsMixin(LitElement) {
     return html`
         <article class="card car-card">
           <section class="card__content">
-            <section class="card__content__left">
               <h2 class="car__make">${car.make}</h2>
               <p class="car__model">${car.model}</p>
-            <section>
-            <section class="card__content__right">
               <p class="car__year-model">${car.year_model}</p>
-              <p class="car__price">${car.price}</p>
+              <p class="car__price">$${car.price}</p>
               <p class="car__date-added">${car.date_added}</p>
-            <section>
           </section>
-          <section class="card__footer">
+          <section class="card__footer ${car.licensed ? `card__footer--licensed`: `card__footer--unlicensed`}">
             <p class="car__licensed">${car.licensed ? `Licensed` : `Unlicensed`}</p>
           </section
         </article>
@@ -43,8 +39,13 @@ export class CarCard extends ScopedElementsMixin(LitElement) {
 
   static get styles() {
     return css`
-      ${linkComponentStyle}
       ${cardComponentStyle}
+      .card__footer--licensed {
+        background-color: ${leaf30}
+      }
+      .card__footer--unlicensed {
+        background-color: ${red}
+      }
     `;
   }
 }
