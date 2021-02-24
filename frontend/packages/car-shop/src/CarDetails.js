@@ -1,15 +1,11 @@
 import {
-  cardComponentStyle,
   css,
   font16BoldMixin,
   html,
-  leaf30,
   LitElement,
-  red,
 } from 'ing-web';
 
 export class CarDetails extends LitElement {
-
   static get properties() {
     return {
       data: { type: Object },
@@ -24,10 +20,7 @@ export class CarDetails extends LitElement {
   render() {
     const { data: car } = this
     return html`
-      <ing-dialog aria-haspopup="dialog" role="dialog">
-        <ing-dialog-frame slot="content">
-            <div slot="header"><p class="car__make" title=${car.make}>${car.make}</p></div>
-            <div slot="content">
+      ${car ? html`
               <dl class="car__details">
                 <dt id="model">Model</dt>
                 <dd class="car__model" aria-labelledby="model" title=${car.model}>${car.model}</dd>
@@ -42,23 +35,12 @@ export class CarDetails extends LitElement {
                 <dt id="location">Location</dt>
                 <dd class="car__location" area-labelledby="location" title=${car.location?.name}>${car.location?.name}</dd>
               </dl>
-              <ing-button
-                    @click="${e =>
-                      e.target.dispatchEvent(
-                        new Event('close-overlay', {
-                          bubbles: true,
-                        }),
-                      )}"
-                    >Ok</ing-button>
-          </div>
-        </ing-dialog-frame>
-      </ing-dialog>
+      `: ``}
     `;
   }
 
   static get styles() {
     return css`
-      ${cardComponentStyle}
       dl.car__details {
         display: flex;
         flex-flow: row;
@@ -78,15 +60,6 @@ export class CarDetails extends LitElement {
         text-align: left;
         text-overflow: ellipsis;
         overflow: hidden;
-      }
-      .card__footer {
-        text-align: center;
-      }
-      .card__footer--licensed {
-        background-color: ${leaf30}
-      }
-      .card__footer--unlicensed {
-        background-color: ${red}
       }
     `;
   }

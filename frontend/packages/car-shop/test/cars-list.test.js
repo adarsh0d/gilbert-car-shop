@@ -16,14 +16,13 @@ describe('Cars List', () => {
     const carElements = el.shadowRoot.querySelectorAll('li')
     expect(carElements.length).to.equal(4);
   });
-
    it('should show details on to click card', async () => {
       const el = await fixture(html`<cars-list .cars=${cars}></cars-list>`);
       const cardEl = el.shadowRoot.querySelector('li:first-child > car-card');
       const showCardDetailsSpy = stub(el, 'showCarDetails');
       el.requestUpdate();
       await el.updateComplete;
-      cardEl.shadowRoot.querySelector('.card').click();
+      cardEl.shadowRoot.querySelector('.btn__read').click();
       expect(showCardDetailsSpy).to.have.callCount(1);
   });
 

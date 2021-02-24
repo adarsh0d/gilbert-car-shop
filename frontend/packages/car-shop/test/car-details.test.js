@@ -33,11 +33,6 @@ describe('Car Details Popup', () => {
     expect(carLocationEl.innerText).to.equal('West wing');
     expect(carLocationEl.getAttribute('title')).to.equal('West wing');
   });
-  it('has car make', () => {
-    const carMakeEl = el.shadowRoot.querySelector('.car__make');
-    expect(carMakeEl.innerText).to.equal('Volkswagen');
-    expect(carMakeEl.getAttribute('title')).to.equal('Volkswagen');
-  });
 
   it('has car model', () => {
     const carModelEl = el.shadowRoot.querySelector('.car__model');

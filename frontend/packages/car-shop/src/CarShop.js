@@ -12,8 +12,8 @@ import {
 } from 'ing-web';
 
 import { CarsList } from './CarsList';
-
 registerDefaultIconsets();
+
 export class CarShop extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {
     return {

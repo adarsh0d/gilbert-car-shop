@@ -4,13 +4,19 @@ import {
   elevation8Mixin,
   font16BoldMixin,
   html,
+  IngButton,
   leaf30,
   LitElement,
   red,
+  ScopedElementsMixin,
 } from 'ing-web';
 
-export class CarCard extends LitElement {
-
+export class CarCard extends ScopedElementsMixin(LitElement) {
+  static get scopedElements() {
+    return {
+      'ing-button': IngButton
+    };
+  }
   static get properties() {
     return {
       data: { type: Object },
@@ -32,7 +38,7 @@ export class CarCard extends LitElement {
   render() {
     const { data: car } = this
     return html`
-        <article class="card car-card ${car.licensed? `card--elevated`: `` }" @click=${car.licensed ? this.showCarDetails : () => false}>
+        <article class="card car-card ${car.licensed? `card--elevated`: `` }">
           <section class="card__content">
             <h2 class="car__make" aria-label="Make" title=${car.make}>${car.make}</h2>
             <dl class="car__details">
@@ -44,11 +50,11 @@ export class CarCard extends LitElement {
               <dd class="car__price" area-labelledby="price" title=$${car.price}>$${car.price}</dd>
               <dt id="date">Date</dt>
               <dd class="car__date-added" area-labelledby="date" title=${car.dateAdded}>${car.dateAdded}</dd>
+              <dt id="licensed">Licensed</dt>
+              <dd class="car__licensed" area-label="Licenced" title=${car.licensed ? `Licensed` : `Unlicensed`}>${car.licensed ? `Licensed` : `Unlicensed`}</dd>
             </dl>
+            <ing-button slot="invoker" class="btn__read" aria-hidden=${car.licensed ? false : true } outline @click=${car.licensed ? this.showCarDetails : () => false} title="Know More" aria-label="Click to know more">Know More</ing-button>
           </section>
-          <section class="card__footer ${car.licensed ? `card__footer--licensed`: `card__footer--unlicensed`}">
-            <p class="car__licensed" area-label="Licenced" title=${car.licensed ? `Licensed` : `Unlicensed`}>${car.licensed ? `Licensed` : `Unlicensed`}</p>
-          </section
         </article>
     `;
   }
@@ -61,14 +67,23 @@ export class CarCard extends LitElement {
         flex-flow: row;
         flex-wrap: wrap;
       }
+      .card__content {
+        min-height: 250px;
+      }
       .card:not(.card--elevated) {
         cursor: not-allowed;
         opacity: 0.6;
         box-shadow: none;
       }
-      .card--elevated:hover {
+      .card:not(.card--elevated) .btn__read{
+        visibility: hidden;
+      }
+      .card--elevated:hover .btn__read{
+        border-width: 2px;
+      }
+      .card--elevated .btn__read {
+        width: 100%;
         cursor: pointer;
-        ${elevation8Mixin()}
       }
       dl.car__details dt{
         flex: 0 0 50%;
@@ -80,18 +95,9 @@ export class CarCard extends LitElement {
       dl.car__details dd{
         flex:0 0 50%;
         margin-left: auto;
-        text-align: left;
+        white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
-      }
-      .card__footer {
-        text-align: center;
-      }
-      .card__footer--licensed {
-        background-color: ${leaf30}
-      }
-      .card__footer--unlicensed {
-        background-color: ${red}
       }
     `;
   }
