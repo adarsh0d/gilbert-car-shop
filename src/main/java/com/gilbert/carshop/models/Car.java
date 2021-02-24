@@ -8,7 +8,8 @@ public class Car {
 	@Id
 	private int _id;
 	private CarInformation carInfo;
-
+	private CarLocation location;
+	
 	public Car() {
 	}
 
@@ -20,9 +21,10 @@ public class Car {
 		this._id = _id;
 	}
 
-	public Car(CarInformation carInfo, int id) {
+	public Car(CarInformation carInfo, int id, CarLocation location) {
 		this._id = id;
 		this.carInfo = carInfo;
+		this.location = location;
 	}
 
 	public CarInformation getCarInfo() {
@@ -31,6 +33,14 @@ public class Car {
 
 	public void setCarInfo(CarInformation carInfo) {
 		this.carInfo = carInfo;
+	}
+
+	public CarLocation getLocation() {
+		return location;
+	}
+
+	public void setLocation(CarLocation location) {
+		this.location = location;
 	}
 
 }

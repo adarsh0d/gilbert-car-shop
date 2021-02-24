@@ -36,7 +36,7 @@ export class CarCard extends ScopedElementsMixin(LitElement) {
   }
 
   render() {
-    const { data: car } = this
+    const { data: { carInfo: car} } = this;
     return html`
         <article class="card car-card ${car.licensed? `card--elevated`: `` }">
           <section class="card__content">
@@ -53,7 +53,7 @@ export class CarCard extends ScopedElementsMixin(LitElement) {
               <dt id="licensed">Licensed</dt>
               <dd class="car__licensed" area-label="Licenced" title=${car.licensed ? `Licensed` : `Unlicensed`}>${car.licensed ? `Licensed` : `Unlicensed`}</dd>
             </dl>
-            <ing-button slot="invoker" class="btn__read" aria-hidden=${car.licensed ? false : true } outline @click=${car.licensed ? this.showCarDetails : () => false} title="Know More" aria-label="Click to know more">Know More</ing-button>
+            <ing-button class="btn__read" aria-hidden=${car.licensed ? false : true } outline @click=${car.licensed ? this.showCarDetails : () => false} title="Know More" aria-label="Click to know more">Know More</ing-button>
           </section>
         </article>
     `;

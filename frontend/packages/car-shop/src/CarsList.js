@@ -43,28 +43,31 @@ export class CarsList extends ScopedElementsMixin(LitElement) {
 
     return html`
       <ol class="row" id="car-list">
-        ${this.cars.map((car, i) => html`<li class="col col-12 col-@600-9 col-@840-6 col-@1280-3" id=${car?.id}><car-card @showCarDetails=${(e) => { this.showCarDetails(e) }} .data=${car?.carInfo}></car-card></li>`)}
+        ${this.cars.map((car, i) => html`<li class="col col-12 col-@600-9 col-@840-6 col-@1280-3" id=${car?.id}><car-card @showCarDetails=${(e) => { this.showCarDetails(e) }} .data=${car}></car-card></li>`)}
       </ol>
-      <ing-dialog>
+      <ing-dialog class="car-dialog">
         <ing-button class="btn__invoker" slot="invoker" aria-haspopup="dialog"> Open dialog </ing-button>
         <ing-dialog-frame slot="content">
-          <div slot="header"><p class="car__make" aria-label="Make" title=${this.selectedCar?.make}>${this.selectedCar?.make}</p></div>
+          <div slot="header"><h3 class="car__make" aria-label="Make" title=${this.selectedCar?.carInfo?.make}>${this.selectedCar?.carInfo?.make}</h3></div>
           <div slot="content">
               <car-details .data=${this.selectedCar}></car-details>
               <ing-button
+                class="close-modal
                 aria-label="Click to close popup"
-                @click="${e =>
-                  e.target.dispatchEvent(
-                  new Event('close-overlay', {
-                    bubbles: true,
-                  }),
-                )}">Ok</ing-button>
+                @click="${(e) => { this._handleClose(e)}}">Ok</ing-button>
           </div>
         </ing-dialog-frame>
       </ing-dialog>
     `;
   }
 
+  _handleClose(e) {
+    e.target.dispatchEvent(
+      new Event('close-overlay', {
+        bubbles: true,
+      }),
+    )
+  }
   async showCarDetails(e) {
     this.selectedCar = e.detail.car;
     this.requestUpdate();

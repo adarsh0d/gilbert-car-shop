@@ -18,24 +18,25 @@ export class CarDetails extends LitElement {
 
 
   render() {
-    const { data: car } = this
+    if(!this.data) {
+      return html``
+    }
+    const { data: { carInfo: car, location} } = this;
     return html`
-      ${car ? html`
-              <dl class="car__details">
-                <dt id="model">Model</dt>
-                <dd class="car__model" aria-labelledby="model" title=${car.model}>${car.model}</dd>
-                <dt id="year">Year Model</dt>
-                <dd class="car__year-model" area-labelledby="year" title=${car.yearModel}>${car.yearModel}</dd>
-                <dt id="price">Price</dt>
-                <dd class="car__price" area-labelledby="price" title=$${car.price}>$${car.price}</dd>
-                <dt id="date">Date</dt>
-                <dd class="car__date-added" area-labelledby="date" title=${car.dateAdded}>${car.dateAdded}</dd>
-                <dt id="warehouse">Warehouse</dt>
-                <dd class="car__warehouse" area-labelledby="warehouse" title=${car.location?.warehouse}>${car.location?.warehouse}</dd>
-                <dt id="location">Location</dt>
-                <dd class="car__location" area-labelledby="location" title=${car.location?.name}>${car.location?.name}</dd>
-              </dl>
-      `: ``}
+          <dl class="car__details">
+            <dt id="model">Model</dt>
+            <dd class="car__model" aria-labelledby="model" title=${car.model}>${car.model}</dd>
+            <dt id="year">Year Model</dt>
+            <dd class="car__year-model" area-labelledby="year" title=${car.yearModel}>${car.yearModel}</dd>
+            <dt id="price">Price</dt>
+            <dd class="car__price" area-labelledby="price" title=$${car.price}>$${car.price}</dd>
+            <dt id="date">Date</dt>
+            <dd class="car__date-added" area-labelledby="date" title=${car.dateAdded}>${car.dateAdded}</dd>
+            <dt id="warehouse">Warehouse</dt>
+            <dd class="car__warehouse" area-labelledby="warehouse" title=${location?.warehouse}>${location?.warehouse}</dd>
+            <dt id="location">Location</dt>
+            <dd class="car__location" area-labelledby="location" title=${location?.name}>${location?.name}</dd>
+          </dl>
     `;
   }
 

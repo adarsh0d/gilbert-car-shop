@@ -4,20 +4,24 @@ import { stub } from 'sinon';
 import '../__element-definitions/car-card.js';
 
 const licensedCar = {
-  "make": "Volkswagen",
-  "model": "Jetta III",
-  "yearModel": 1995,
-  "price": 12947.52,
-  "licensed": true,
-  "dateAdded": "2018-09-18"
+  "carInfo": {
+    "make": "Volkswagen",
+    "model": "Jetta III",
+    "yearModel": 1995,
+    "price": 12947.52,
+    "licensed": true,
+    "dateAdded": "2018-09-18"
+  }
 };
 const unLicensedCar = {
-  "make": "Saab",
-  "model": "900",
-  "yearModel": 1987,
-  "price": 8771.0,
-  "licensed": false,
-  "dateAdded": "2017-12-01"
+  "carInfo": {
+    "make": "Saab",
+    "model": "900",
+    "yearModel": 1987,
+    "price": 8771.0,
+    "licensed": false,
+    "dateAdded": "2017-12-01"
+  }
 };
 let el;
 describe('Licensed Car', () => {

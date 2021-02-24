@@ -9,12 +9,14 @@ const car = {
     "lat": "47.13111",
     "long": "-61.54801"
   },
-  "make": "Volkswagen",
-  "model": "Jetta III",
-  "yearModel": 1995,
-  "price": 12947.52,
-  "licensed": true,
-  "dateAdded": "2018-09-18"
+  "carInfo": {
+    "make": "Volkswagen",
+    "model": "Jetta III",
+    "yearModel": 1995,
+    "price": 12947.52,
+    "licensed": true,
+    "dateAdded": "2018-09-18"
+  }
 };
 let el;
 describe('Car Details Popup', () => {
