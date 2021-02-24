@@ -1,22 +1,27 @@
 import { html, fixture, expect } from '@open-wc/testing';
+import { stub } from 'sinon';
 
 import '../__element-definitions/car-card.js';
 
 const licensedCar = {
-  "make": "Volkswagen",
-  "model": "Jetta III",
-  "yearModel": 1995,
-  "price": 12947.52,
-  "licensed": true,
-  "dateAdded": "2018-09-18"
+  "carInfo": {
+    "make": "Volkswagen",
+    "model": "Jetta III",
+    "yearModel": 1995,
+    "price": 12947.52,
+    "licensed": true,
+    "dateAdded": "2018-09-18"
+  }
 };
 const unLicensedCar = {
-  "make": "Saab",
-  "model": "900",
-  "yearModel": 1987,
-  "price": 8771.0,
-  "licensed": false,
-  "dateAdded": "2017-12-01"
+  "carInfo": {
+    "make": "Saab",
+    "model": "900",
+    "yearModel": 1987,
+    "price": 8771.0,
+    "licensed": false,
+    "dateAdded": "2017-12-01"
+  }
 };
 let el;
 describe('Licensed Car', () => {
@@ -24,6 +29,21 @@ describe('Licensed Car', () => {
     // runs before all tests in this block
     el = await fixture(html`<car-card .data=${licensedCar}></car-card>`);
   });
+
+  it('should elevate the card', () => {
+    const cardEl = el.shadowRoot.querySelector('.card');
+    expect(cardEl.classList.contains('card--elevated')).to.equal(true);
+  });
+
+  it('should call the showCarDetails function', async () => {
+    const cardEl = el.shadowRoot.querySelector('.btn__read');
+    const showCarDetailsStub = stub(el, 'showCarDetails');
+    el.requestUpdate();
+    await el.updateComplete;
+    cardEl.click();
+    expect(showCarDetailsStub).to.have.callCount(1);
+  });
+
   it('has car make', () => {
     const carMakeEl = el.shadowRoot.querySelector('.car__make');
     expect(carMakeEl.innerText).to.equal('Volkswagen');
@@ -75,5 +95,19 @@ describe('Unlicensed car', () => {
   it('is accessible', async () => {
     el = await fixture(html`<car-card .data=${unLicensedCar}></car-card>`);
     await expect(el).to.be.accessible();
+  });
+
+  it('should not elevate the card', () => {
+    const cardEl = el.shadowRoot.querySelector('.card');
+    expect(cardEl.classList.contains('card--elevated')).to.equal(false);
+  });
+
+  it('should not call the showCarDetails function', async () => {
+    const cardEl = el.shadowRoot.querySelector('.btn__read');
+    const showCarDetailsStub = stub(el, 'showCarDetails');
+    el.requestUpdate();
+    await el.updateComplete;
+    cardEl.click();
+    expect(showCarDetailsStub).to.have.callCount(0);
   });
 })
