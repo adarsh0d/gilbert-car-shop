@@ -63,12 +63,6 @@ describe('Car Details Popup', () => {
     expect(carDateEl.getAttribute('title')).to.equal('2018-09-18');
   });
 
-  it('has car license information', () => {
-    const carLicensedEl = el.shadowRoot.querySelector('.car__licensed');
-    expect(carLicensedEl.innerText).to.equal('Licensed');
-    expect(carLicensedEl.getAttribute('title')).to.equal('Licensed');
-  });
-
   it('is accessible', () => {
      expect(el).to.be.accessible();
   });

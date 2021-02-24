@@ -1,4 +1,5 @@
 import { html, fixture, expect } from '@open-wc/testing';
+import { stub } from 'sinon';
 
 import '../__element-definitions/cars-list.js';
 import {cars} from './cars';
@@ -18,9 +19,11 @@ describe('Cars List', () => {
 
    it('should show details on to click card', async () => {
       const el = await fixture(html`<cars-list .cars=${cars}></cars-list>`);
-      const cardEl = el.shadowRoot.querySelector('car-card:first-child');
-      const showCardDetailsSpy = sinon.spy(el, 'showCardDetails');
-      await cardEl.shadowRoot.querySelector('.card').click()
+      const cardEl = el.shadowRoot.querySelector('li:first-child > car-card');
+      const showCardDetailsSpy = stub(el, 'showCarDetails');
+      el.requestUpdate();
+      await el.updateComplete;
+      cardEl.shadowRoot.querySelector('.card').click();
       expect(showCardDetailsSpy).to.have.callCount(1);
   });
 

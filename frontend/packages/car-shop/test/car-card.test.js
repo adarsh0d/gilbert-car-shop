@@ -1,4 +1,5 @@
 import { html, fixture, expect } from '@open-wc/testing';
+import { stub } from 'sinon';
 
 import '../__element-definitions/car-card.js';
 
@@ -25,15 +26,14 @@ describe('Licensed Car', () => {
     el = await fixture(html`<car-card .data=${licensedCar}></car-card>`);
   });
 
-  if('should elevate the card', () => {
+  it('should elevate the card', () => {
     const cardEl = el.shadowRoot.querySelector('.card');
-    expect(cardEl.classList.containes('.card--licensed')).to.equal(true);
-    expect(cardEl.classList.containes('.card--unlicensed')).to.equal(false);
+    expect(cardEl.classList.contains('card--elevated')).to.equal(true);
   });
 
-  if('should call the showCarDetails function', () => {
+  it('should call the showCarDetails function', async () => {
     const cardEl = el.shadowRoot.querySelector('.card');
-    const showCarDetailsStub = sinon.stub(el, 'showCarDetails');
+    const showCarDetailsStub = stub(el, 'showCarDetails');
     el.requestUpdate();
     await el.updateComplete;
     cardEl.click();
@@ -92,9 +92,18 @@ describe('Unlicensed car', () => {
     el = await fixture(html`<car-card .data=${unLicensedCar}></car-card>`);
     await expect(el).to.be.accessible();
   });
-  if('should noy elevate the card', () => {
+
+  it('should not elevate the card', () => {
     const cardEl = el.shadowRoot.querySelector('.card');
-    expect(cardEl.classList.containes('.card--unlicensed')).to.equal(true);
-    expect(cardEl.classList.containes('.card--licensed')).to.equal(false);
+    expect(cardEl.classList.contains('card--elevated')).to.equal(false);
+  });
+
+  it('should not call the showCarDetails function', async () => {
+    const cardEl = el.shadowRoot.querySelector('.card');
+    const showCarDetailsStub = stub(el, 'showCarDetails');
+    el.requestUpdate();
+    await el.updateComplete;
+    cardEl.click();
+    expect(showCarDetailsStub).to.have.callCount(0);
   });
 })
