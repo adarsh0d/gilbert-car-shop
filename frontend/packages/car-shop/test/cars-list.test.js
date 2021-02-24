@@ -60,13 +60,13 @@ describe('Car details popup', () => {
     const buyBtn = (document.querySelector(
       '.buy-btn',
     ));
-    const buyFunctionStub = stub(el, 'buyCar')
+    const buyFunctionStub = stub(el, '_buyCar')
     buyBtn.click();
     expect(buyFunctionStub).to.have.callCount(1);
   });
   it('should close the details popup', async () => {
     const closeBtn = (document.querySelector(
-      '.close-modal',
+      '.close-modal-btn',
     ));
     closeBtn.click();
     const done = await aTimeout(1000);

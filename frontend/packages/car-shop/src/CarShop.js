@@ -23,6 +23,9 @@ export class CarShop extends ScopedElementsMixin(LitElement) {
   constructor() {
     super();
     this.cars = [];
+    this.basketValue = 0;
+    this.totalCarsInBasket = 0;
+    this.carsInBasket = []
   }
 
   connectedCallback() {
@@ -45,14 +48,28 @@ export class CarShop extends ScopedElementsMixin(LitElement) {
       <div class="page-container">
         <header class="header">
           <h1 class="header__title">Gilbert car shop</h1>
+          <div class="car-basket">
+            <span class="total-count">${this.totalCarsInBasket} cars</span>
+            <span class="total-value">$${this.basketValue}</span>
+          </div>
         </header>
         <main class="content">
-          <cars-list .cars=${this.cars}></cars-list>
+          <cars-list class="car-list" @buyCar=${(e) => {this._updateBasket(e)}} .cars=${this.cars}></cars-list>
         </main>
       </div>
     `;
   }
 
+  _updateBasket(e) {
+    const carToBuy = e.detail.car;
+    const index = this.carsInBasket.findIndex((car) => carToBuy.id === car.id);
+    if(index < 0) {
+      this.basketValue += e.detail.car.carInfo.price;
+      this.totalCarsInBasket = this.totalCarsInBasket + 1;
+      this.carsInBasket.push(carToBuy);
+      this.requestUpdate();
+    }
+  }
   static get styles() {
     return css`
       ${cardComponentStyle}

@@ -52,9 +52,15 @@ export class CarsList extends ScopedElementsMixin(LitElement) {
           <div slot="content">
               <car-details .data=${this.selectedCar}></car-details>
               <ing-button
-                class="close-modal
+                class="buy-btn"
+                aria-label="Click to buy this car"
+                @click="${(e) => { this._buyCar()}}">Buy</ing-button>
+              <ing-button
+                text
+                class="close-modal-btn"
                 aria-label="Click to close popup"
-                @click="${(e) => { this._handleClose(e)}}">Ok</ing-button>
+                @click="${(e) => { this._handleClose(e)}}">Close</ing-button>
+
           </div>
         </ing-dialog-frame>
       </ing-dialog>
@@ -67,6 +73,13 @@ export class CarsList extends ScopedElementsMixin(LitElement) {
         bubbles: true,
       }),
     )
+  }
+  _buyCar() {
+    this.dispatchEvent(new CustomEvent('buyCar', {
+      detail: {
+        car: this.selectedCar
+      }
+    }));
   }
   async showCarDetails(e) {
     this.selectedCar = e.detail.car;
