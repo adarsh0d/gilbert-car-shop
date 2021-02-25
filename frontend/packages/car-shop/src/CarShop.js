@@ -8,7 +8,11 @@ import {
   spacer32,
   spacer64,
   white,
-  registerDefaultIconsets
+  registerDefaultIconsets,
+  spacer24,
+  IngButton,
+  font19Mixin,
+  IngIcon
 } from 'ing-web';
 
 import { CarsList } from './CarsList';
@@ -17,7 +21,9 @@ registerDefaultIconsets();
 export class CarShop extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {
     return {
-      'cars-list': CarsList
+      'cars-list': CarsList,
+      'ing-button': IngButton,
+      'ing-icon': IngIcon
     };
   }
   constructor() {
@@ -49,8 +55,8 @@ export class CarShop extends ScopedElementsMixin(LitElement) {
         <header class="header">
           <h1 class="header__title">Gilbert car shop</h1>
           <div class="car-basket">
-            <span class="total-count">${this.totalCarsInBasket} cars</span>
-            <span class="total-value">$${this.basketValue}</span>
+            <ing-button aria-label="Total cars in basket" class="total-count"><ing-icon icon-id="ing:outline-products:basket" slot="icon-before"></ing-icon>${this.totalCarsInBasket} cars</ing-button>
+            <span class="total-value" aria-label="Total basket value">$${this.basketValue}</span>
           </div>
         </header>
         <main class="content">
@@ -77,12 +83,20 @@ export class CarShop extends ScopedElementsMixin(LitElement) {
         background-color: ${white};
         height: ${spacer64};
         min-height: ${spacer64};
-        padding: 10px;
+        padding: 20px;
         box-sizing: border-box;
         ${elevation1Mixin()}
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
       .header h1 {
         margin: 0;
+        flex: 1;
+        font-size: ${spacer24}
+      }
+      .header .total-value {
+        font: ${font19Mixin()}
       }
       .content {
         margin: ${spacer32} ${spacer32}

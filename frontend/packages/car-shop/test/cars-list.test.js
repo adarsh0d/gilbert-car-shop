@@ -1,5 +1,5 @@
 import { html, fixture, expect, nextFrame, aTimeout } from '@open-wc/testing';
-import { stub } from 'sinon';
+import { stub, spy } from 'sinon';
 
 import '../__element-definitions/cars-list.js';
 import {cars} from './cars';
@@ -63,6 +63,12 @@ describe('Car details popup', () => {
     const buyFunctionStub = stub(el, '_buyCar')
     buyBtn.click();
     expect(buyFunctionStub).to.have.callCount(1);
+  });
+  it('should dispatch event', async () => {
+    const eventspy = spy();
+    el.addEventListener('buyCar', eventspy);
+    el._buyCar();
+    expect(eventspy.called).to.equal(true);
   });
   it('should close the details popup', async () => {
     const closeBtn = (document.querySelector(

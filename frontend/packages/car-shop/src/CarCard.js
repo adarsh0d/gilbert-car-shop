@@ -5,6 +5,7 @@ import {
   font16BoldMixin,
   html,
   IngButton,
+  IngIcon,
   leaf30,
   LitElement,
   red,
@@ -14,7 +15,8 @@ import {
 export class CarCard extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {
     return {
-      'ing-button': IngButton
+      'ing-button': IngButton,
+      'ing-icon': IngIcon
     };
   }
   static get properties() {
@@ -53,7 +55,7 @@ export class CarCard extends ScopedElementsMixin(LitElement) {
               <dt id="licensed">Licensed</dt>
               <dd class="car__licensed" area-label="Licenced" title=${car.licensed ? `Licensed` : `Unlicensed`}>${car.licensed ? `Licensed` : `Unlicensed`}</dd>
             </dl>
-            <ing-button class="btn__read" aria-hidden=${car.licensed ? false : true } outline @click=${car.licensed ? this.showCarDetails : () => false} title="Know More" aria-label="Click to know more">Know More</ing-button>
+            <ing-button class="btn__read" aria-hidden=${car.licensed ? false : true } outline @click=${car.licensed ? this.showCarDetails : () => false} title="Know More" aria-label="Click to know more"><ing-icon icon-id="ing:outline-navigation:externalLink" slot="icon-after"></ing-icon>Know More</ing-button>
           </section>
         </article>
     `;

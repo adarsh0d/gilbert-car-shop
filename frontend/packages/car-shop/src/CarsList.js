@@ -8,6 +8,7 @@ import {
   IngDialog,
   IngDialogFrame,
   IngButton,
+  IngIcon,
 } from 'ing-web';
 import { CarCard } from './CarCard';
 import { CarDetails } from './CarDetails';
@@ -20,7 +21,8 @@ export class CarsList extends ScopedElementsMixin(LitElement) {
       'car-details': CarDetails,
       'ing-dialog': IngDialog,
       'ing-dialog-frame': IngDialogFrame,
-      'ing-button': IngButton
+      'ing-button': IngButton,
+      'ing-icon': IngIcon
     };
   }
   static get properties() {
@@ -54,7 +56,9 @@ export class CarsList extends ScopedElementsMixin(LitElement) {
               <ing-button
                 class="buy-btn"
                 aria-label="Click to buy this car"
-                @click="${(e) => { this._buyCar()}}">Buy</ing-button>
+                @click="${(e) => { this._buyCar()}}">
+                <ing-icon icon-id="ing:outline-transactions:paymentRequestDollar" slot="icon-before"></ing-icon>
+                Buy</ing-button>
               <ing-button
                 text
                 class="close-modal-btn"
