@@ -37,7 +37,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "ing-web": "^2.0.0"
+    "ing-web": "^2.0.0",
+    "pwa-helpers": "^0.9.1",
+    "redux": "^4.0.5",
+    "reselect": "^4.0.0"
   },
   "husky": {
     "hooks": {

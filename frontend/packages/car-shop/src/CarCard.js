@@ -1,18 +1,16 @@
 import {
   cardComponentStyle,
   css,
-  elevation8Mixin,
   font16BoldMixin,
   html,
   IngButton,
   IngIcon,
-  leaf30,
   LitElement,
-  red,
   ScopedElementsMixin,
 } from 'ing-web';
-
-export class CarCard extends ScopedElementsMixin(LitElement) {
+import { connect } from 'pwa-helpers/connect-mixin';
+import store from '../../store/store';
+export class CarCard extends connect(store)(ScopedElementsMixin(LitElement)) {
   static get scopedElements() {
     return {
       'ing-button': IngButton,
@@ -24,12 +22,19 @@ export class CarCard extends ScopedElementsMixin(LitElement) {
       data: { type: Object },
     };
   }
-
+  stateChanged(state) {
+    const { carsInBasket } = state;
+    if(carsInBasket.includes(this.data.id)) {
+      this.data.alreadyInBasket = true;
+      this.requestUpdate();
+    }
+  }
   constructor() {
     super();
   }
 
   showCarDetails() {
+    //store.dispatch(showCar())
     this.dispatchEvent(new CustomEvent('showCarDetails', {
       detail: {
         car: this.data
@@ -42,7 +47,10 @@ export class CarCard extends ScopedElementsMixin(LitElement) {
     return html`
         <article class="card car-card ${car.licensed? `card--elevated`: `` }">
           <section class="card__content">
-            <h2 class="car__make" aria-label="Make" title=${car.make}>${car.make}</h2>
+            <div class="card__header">
+              <h2 class="car__make" aria-label="Make" title=${car.make}>${car.make}</h2>
+              ${ this.data['alreadyInBasket'] ? html`<span aria-label="Product is in basket" title="In basket"><ing-icon icon-id="ing:outline-notification:notificationSuccess"></ing-icon>In basket</span>`: html``}
+            </div>
             <dl class="car__details">
               <dt id="model">Model</dt>
               <dd class="car__model" aria-labelledby="model" title=${car.model}>${car.model}</dd>
@@ -82,6 +90,18 @@ export class CarCard extends ScopedElementsMixin(LitElement) {
       }
       .card--elevated:hover .btn__read{
         border-width: 2px;
+      }
+      .card__header {
+        display: flex;
+        align-items: center;
+      }
+      .card__header h2 {
+        flex: 1
+      }
+      .card__header span {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
       .card--elevated .btn__read {
         width: 100%;

@@ -32,7 +32,7 @@ describe('Cars List', () => {
     await expect(el).to.be.accessible("Volkswagen");
   });
 });
-describe('Car details popup', () => {
+describe('Car details', () => {
   let el;
   beforeEach(async () => {
     el = await fixture(html`<cars-list .cars=${cars}></cars-list>`);
@@ -47,7 +47,7 @@ describe('Car details popup', () => {
   })
 
   it('should show details popup on click', async () => {
-    expect(el.selectedCar.carInfo.make).to.equal('Volkswagen');
+    expect(el.carToShow.carInfo.make).to.equal('Volkswagen');
     expect(el.shadowRoot.querySelector('.car-dialog').opened).to.equal(true);
   });
   it('should have a buy button', async () => {
@@ -64,11 +64,13 @@ describe('Car details popup', () => {
     buyBtn.click();
     expect(buyFunctionStub).to.have.callCount(1);
   });
-  it('should dispatch event', async () => {
-    const eventspy = spy();
-    el.addEventListener('buyCar', eventspy);
+  it('should buy product', async () => {
+    el.carToShow = cars[0]
+    el.requestUpdate();
+    await el.updateComplete;
     el._buyCar();
-    expect(eventspy.called).to.equal(true);
+
+    expect(el.carsInBasket.length).to.equal(1);
   });
   it('should close the details popup', async () => {
     const closeBtn = (document.querySelector(

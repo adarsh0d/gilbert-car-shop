@@ -16,60 +16,13 @@ describe('CarShop', () => {
     const el = await fixture(html`<car-shop></car-shop>`);
     const response = { ok: true, json: () => new Promise((resolve, reject) => resolve(cars)) };
     const fetchStub = stub(window, 'fetch').resolves(response);
-    el.connectedCallback();
+    el._fetchData();
     expect(fetchStub.calledWith('/search/cars')).to.equal(true);
   });
   it('should have a basket', async() => {
     const el = await fixture(html`<car-shop></car-shop>`);
     const basketEl = el.shadowRoot.querySelector('.car-basket');
     expect(basketEl).to.not.equal(null);
-  });
-  it('should update the basket', async() => {
-    const el = await fixture(html`<car-shop></car-shop>`);
-    const ev = new CustomEvent('buyCar', {
-      detail: {
-          car: cars[0]
-      }
-    });
-    el._updateBasket(ev);
-    await el.updateComplete;
-    expect(el.shadowRoot.querySelector('.total-value').innerText).to.equal("$12947.52");
-    expect(el.shadowRoot.querySelector('.total-count').innerText).to.equal("1 cars");
-  });
-  it('should not include duplicate items in  basket', async() => {
-    const el = await fixture(html`<car-shop></car-shop>`);
-    const ev = new CustomEvent('buyCar', {
-      detail: {
-          car: cars[0]
-      }
-    });
-    el._updateBasket(ev);
-    await el.updateComplete;
-    el._updateBasket(ev);
-    await el.updateComplete;
-    expect(el.shadowRoot.querySelector('.total-value').innerText).to.equal("$12947.52");
-    expect(el.shadowRoot.querySelector('.total-count').innerText).to.equal("1 cars");
-  });
-  it('should call the update basket function', async() => {
-    const el = await fixture(html`<car-shop></car-shop>`);
-    const carListEl = el.shadowRoot.querySelector('.car-list');
-    carListEl.cars = cars;
-    await carListEl.updateComplete;
-    const ev = new CustomEvent('showCarDetails', {
-      detail: {
-          car: cars[0]
-      }
-    })
-    carListEl.showCarDetails(ev);
-    carListEl.requestUpdate();
-    await carListEl.updateComplete;
-    expect(carListEl.shadowRoot.querySelector('.car-dialog').opened).to.equal(true);
-    const buyBtn = (document.querySelector(
-      '.buy-btn',
-    ));
-    const updateBasketFunctionStub = stub(el, '_updateBasket')
-    buyBtn.click();
-    expect(updateBasketFunctionStub).to.have.callCount(1);
   });
 
   it('is accessible', async () => {
