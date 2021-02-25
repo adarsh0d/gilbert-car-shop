@@ -1,14 +1,11 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import '../__element-definitions/car-shop.js';
 import { cars } from './cars.js';
 
 
 describe('CarShop', () => {
-  afterEach(() => {
-    sinon.restore();
-  })
   it('has a default title "Gilbert car shop"', async () => {
     const el = await fixture(html`<car-shop></car-shop>`);
     const pageTitleEl = el.shadowRoot.querySelector('.header__title')
@@ -18,9 +15,14 @@ describe('CarShop', () => {
   it('should fetch for cars', async() => {
     const el = await fixture(html`<car-shop></car-shop>`);
     const response = { ok: true, json: () => new Promise((resolve, reject) => resolve(cars)) };
-    const fetchStub = sinon.stub(window, 'fetch').resolves(response);
-    el.connectedCallback();
+    const fetchStub = stub(window, 'fetch').resolves(response);
+    el._fetchData();
     expect(fetchStub.calledWith('/search/cars')).to.equal(true);
+  });
+  it('should have a basket', async() => {
+    const el = await fixture(html`<car-shop></car-shop>`);
+    const basketEl = el.shadowRoot.querySelector('.car-basket');
+    expect(basketEl).to.not.equal(null);
   });
 
   it('is accessible', async () => {
