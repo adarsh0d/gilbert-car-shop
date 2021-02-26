@@ -2,7 +2,7 @@
 
 ## Installation
 
-requires [Node.js](https://nodejs.org/) v10+ and jdk1.8 and local mongodb server to run.
+requires [Node.js](https://nodejs.org/) v10+ and jdk1.8 and local [mongodb](https://www.mongodb.com/try/download/community) community server to run.
 
 Install the dependencies and devDependencies and start the server.
 
