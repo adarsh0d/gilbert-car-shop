@@ -15,7 +15,7 @@ cd ..
 gradlew bootrun
 ```
 
-Add following data in mongodb server
+Add following data in mongodb server under a database name 'testdata' or update the application.properties
 ```sh
  [
         {
