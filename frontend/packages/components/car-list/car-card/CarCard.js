@@ -8,9 +8,8 @@ import {
   LitElement,
   ScopedElementsMixin,
 } from 'ing-web';
-import { connect } from 'pwa-helpers/connect-mixin';
-import store from '../../store/store';
-export class CarCard extends connect(store)(ScopedElementsMixin(LitElement)) {
+
+export class CarCard extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {
     return {
       'ing-button': IngButton,
@@ -20,26 +19,13 @@ export class CarCard extends connect(store)(ScopedElementsMixin(LitElement)) {
   static get properties() {
     return {
       data: { type: Object },
+      showCarDetails: { type: Function, attribute: false }
     };
   }
-  stateChanged(state) {
-    const { carsInBasket } = state;
-    if(carsInBasket.includes(this.data.id)) {
-      this.data.alreadyInBasket = true;
-      this.requestUpdate();
-    }
-  }
+
   constructor() {
     super();
-  }
-
-  showCarDetails() {
-    //store.dispatch(showCar())
-    this.dispatchEvent(new CustomEvent('showCarDetails', {
-      detail: {
-        car: this.data
-      }
-    }));
+    this.data = null;
   }
 
   render() {
@@ -63,7 +49,7 @@ export class CarCard extends connect(store)(ScopedElementsMixin(LitElement)) {
               <dt id="licensed">Licensed</dt>
               <dd class="car__licensed" area-label="Licenced" title=${car.licensed ? `Licensed` : `Unlicensed`}>${car.licensed ? `Licensed` : `Unlicensed`}</dd>
             </dl>
-            <ing-button class="btn__read" aria-hidden=${car.licensed ? false : true } outline @click=${car.licensed ? this.showCarDetails : () => false} title="Know More" aria-label="Click to know more"><ing-icon icon-id="ing:outline-navigation:externalLink" slot="icon-after"></ing-icon>Know More</ing-button>
+            <ing-button class="btn__read" aria-hidden=${car.licensed ? false : true } outline @click=${car.licensed ? () => this.showCarDetails(this.data) : () => false} title="Know More" aria-label="Click to know more"><ing-icon icon-id="ing:outline-navigation:externalLink" slot="icon-after"></ing-icon>Know More</ing-button>
           </section>
         </article>
     `;

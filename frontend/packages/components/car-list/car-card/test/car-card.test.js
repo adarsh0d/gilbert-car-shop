@@ -37,7 +37,7 @@ describe('Licensed Car', () => {
 
   it('should call the showCarDetails function', async () => {
     const cardEl = el.shadowRoot.querySelector('.btn__read');
-    const showCarDetailsStub = stub(el, 'showCarDetails');
+    const showCarDetailsStub = stub(el, '_showCarDetails');
     el.requestUpdate();
     await el.updateComplete;
     cardEl.click();
@@ -104,7 +104,7 @@ describe('Unlicensed car', () => {
 
   it('should not call the showCarDetails function', async () => {
     const cardEl = el.shadowRoot.querySelector('.btn__read');
-    const showCarDetailsStub = stub(el, 'showCarDetails');
+    const showCarDetailsStub = stub(el, '_showCarDetails');
     el.requestUpdate();
     await el.updateComplete;
     cardEl.click();

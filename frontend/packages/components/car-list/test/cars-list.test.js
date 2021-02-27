@@ -2,7 +2,7 @@ import { html, fixture, expect, nextFrame, aTimeout } from '@open-wc/testing';
 import { stub, spy } from 'sinon';
 
 import '../__element-definitions/cars-list.js';
-import {cars} from './cars';
+import {cars} from '../../../../pages/car-shop/test/cars';
 
 describe('Cars List', () => {
   it('has no car available if cars not loaded', async () => {
@@ -21,7 +21,7 @@ describe('Cars List', () => {
       el.requestUpdate();
       await el.updateComplete;
       const cardEl = el.shadowRoot.querySelector('li:first-child > car-card');
-      const showCardDetailsSpy = stub(el, 'showCarDetails');
+      const showCardDetailsSpy = stub(el, '_showCarDetails');
       cardEl.shadowRoot.querySelector('.btn__read').click();
       await el.updateComplete;
       expect(showCardDetailsSpy).to.have.callCount(1);
@@ -41,7 +41,7 @@ describe('Car details', () => {
           car: cars[0]
       }
     })
-    el.showCarDetails(ev);
+    el._showCarDetails(ev);
     el.requestUpdate();
     await el.updateComplete;
   })

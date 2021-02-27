@@ -1,3 +1,3 @@
-import { CarsList } from '../src/CarsList.js';
+import { CarsList } from '../CarsList.js';
 
 window.customElements.define('cars-list', CarsList);
