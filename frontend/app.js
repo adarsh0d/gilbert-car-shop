@@ -36,8 +36,8 @@ export class App extends connect(store)(LitElement) {
   }
 
   loadPages() {
-    const path = location.pathname;
-    switch(path) {
+    const { pathname } = location;
+    switch(pathname) {
       case '/':
       case '/car-shop':
       default:
