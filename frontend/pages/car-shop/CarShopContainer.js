@@ -1,76 +1,35 @@
-import {
-  html,
-  LitElement,
-  ScopedElementsMixin,
-} from 'ing-web';
-import { connect } from "pwa-helpers/connect-mixin";
+import { CarShopPage } from "./CarShopPage";
+import { connect } from "../../packages/store/store";
 import { buyCar, showCarDetails, setCarModal, getCars } from '../../packages/store/modules/car-shop/actions';
-import store from '../../packages/store/store';
-import { CarShopView } from '../../packages/views';
 
-export class CarShopContainer extends connect(store)(ScopedElementsMixin(LitElement)) {
-  static get scopedElements() {
-    return {
-      'car-shop-view': CarShopView
-    };
-  }
-  static get properties() {
-    return {
-      carsInBasket: {type: Array},
-      carToShow: {type: Object},
-      cars: {type: Array},
-      modalOpen: {type: Boolean}
-    };
-  }
-  constructor() {
-    super();
-  }
-
-  _buyCar() {
-    store.dispatch(buyCar(this.carToShow));
-  }
-
-  _showCarDetails(car) {
-    store.dispatch(showCarDetails(car));
-  }
-
-  _closeModal() {
-   store.dispatch(setCarModal(false))
-  }
-
-  stateChanged({carReducer}) {
-    const { cars, loaded, modalOpen, carToShow } = carReducer;
-    this.cars = cars;
-    this.loaded = loaded;
-    this.modalOpen = modalOpen;
-    this.carToShow = carToShow;
-  }
-
-  firstUpdated() {
-    getCars();
-  }
-
-  render() {
-    return html`
-      ${this.loaded ? html `
-        <car-shop-view
-          .cars=${this.cars}
-          .opened=${this.modalOpen}
-          .carToShow=${this.carToShow}
-          .showCarDetails=${this._showCarDetails.bind(this)}
-          .closeModal=${this._closeModal.bind(this)}
-          .buyCar=${this._buyCar.bind(this)}
-        >
-        </car-shop-view>
-      `: html `<ing-spinner></ing-spinner>`
-      }
-    `;
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this._storeUnsubscribe();
+const mapStateToProps = function({carReducer}) {
+  const { cars, loaded, modalOpen, carToShow, carsInBasket, basketValue } = carReducer;
+  return {
+    cars: cars,
+    loaded: loaded,
+    modalOpen: modalOpen,
+    carToShow: carToShow,
+    carsInBasket: carsInBasket,
+    basketValue: basketValue
   }
 }
 
+const mapDispatchToProps = function(dispatch) {
+  return {
+    showCarDetails: (car) => dispatch(showCarDetails(car)),
+    closeModal: () => dispatch(setCarModal(false)),
+    buyCar: (car) => dispatch(buyCar(car)),
+    getCars: () => dispatch(getCars())
+  }
+}
+
+class CarShopContainer extends connect(mapStateToProps, mapDispatchToProps)(CarShopPage){
+  constructor() {
+    super()
+  }
+  firstUpdated() {
+    this.getCars();
+  }
+}
 customElements.define('car-shop', CarShopContainer);
+export { CarShopContainer };

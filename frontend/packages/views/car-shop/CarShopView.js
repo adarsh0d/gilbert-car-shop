@@ -30,8 +30,6 @@ export class CarShopView extends ScopedElementsMixin(LitElement) {
   }
   constructor() {
     super();
-    this.cars = [];
-    this.opened = false;
   }
 
   render() {

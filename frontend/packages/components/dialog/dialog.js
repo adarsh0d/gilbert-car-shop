@@ -9,9 +9,6 @@ export class DialogWindow extends OverlayMixin(LitElement) {
       </div>
     `;
   }
-
-  // FIXME: This should be refactored to Array.from(this.children).find(child => child.slot === 'content')
-  // When this issue is fixed https://github.com/ing-bank/lion/issues/382
   get _overlayContentNode() {
     return this.querySelector('[slot="content"]');
   }
