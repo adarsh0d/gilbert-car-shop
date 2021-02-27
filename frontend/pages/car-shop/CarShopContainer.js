@@ -2,19 +2,9 @@ import { CarShopPage } from "./CarShopPage";
 import { connect } from "../../packages/store/store";
 import { buyCar, showCarDetails, setCarModal, getCars } from '../../packages/store/modules/car-shop/actions';
 
-const mapStateToProps = function({carReducer}) {
-  const { cars, loaded, modalOpen, carToShow, carsInBasket, basketValue } = carReducer;
-  return {
-    cars: cars,
-    loaded: loaded,
-    modalOpen: modalOpen,
-    carToShow: carToShow,
-    carsInBasket: carsInBasket,
-    basketValue: basketValue
-  }
-}
+const mapStateToProps = ({carReducer}) => ({...carReducer});
 
-const mapDispatchToProps = function(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
     showCarDetails: (car) => dispatch(showCarDetails(car)),
     closeModal: () => dispatch(setCarModal(false)),
