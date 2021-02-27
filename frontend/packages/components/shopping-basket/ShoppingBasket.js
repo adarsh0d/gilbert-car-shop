@@ -19,8 +19,8 @@ export class ShoppingBasket extends ScopedElementsMixin(LitElement) {
   render() {
     return html`
       <div class="car-basket">
-        <ing-button aria-label="Total cars in basket" class="total-count"><ing-icon icon-id="ing:outline-products:basket" slot="icon-before"></ing-icon>${this.carsInBasket.length} cars</ing-button>
-        <span class="total-value" aria-label="Total basket value">$${this.basketValue.toFixed(2)}</span>
+        <ing-button aria-label="Total cars in basket" class="total-count"><ing-icon icon-id="ing:outline-products:basket" slot="icon-before"></ing-icon>${this.carsInBasket?.length} cars</ing-button>
+        <span class="total-value" aria-label="Total basket value">$${this.basketValue?.toFixed(2)}</span>
       </div>
     `
   }
@@ -30,4 +30,3 @@ export class ShoppingBasket extends ScopedElementsMixin(LitElement) {
   }
 }
 
-customElements.define('shopping-basket', ShoppingBasket);

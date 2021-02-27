@@ -9,10 +9,10 @@ export const setAllCars = (payload) => {
       payload: payload
   }
 };
-export const buyCar = car => {
+export const buyCar = id => {
     return {
         type: BUY_CAR,
-        payload: car
+        payload: id
     }
 };
 export const showCarDetails = car => {

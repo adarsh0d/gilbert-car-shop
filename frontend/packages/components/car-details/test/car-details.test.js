@@ -1,6 +1,6 @@
 import { html, fixture, expect } from '@open-wc/testing';
 
-import '../__element-definitions/car-details.js';
+import '../__element-definitions/car-details';
 
 const car = {
   "location": {
@@ -19,7 +19,7 @@ const car = {
   }
 };
 let el;
-describe('Car Details Popup', () => {
+describe('Car Details', () => {
   before(async () => {
     // runs before all tests in this block
     el = await fixture(html`<car-details .data=${car}></car-details>`);

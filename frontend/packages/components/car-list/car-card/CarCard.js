@@ -35,7 +35,7 @@ export class CarCard extends ScopedElementsMixin(LitElement) {
           <section class="card__content">
             <div class="card__header">
               <h2 class="car__make" aria-label="Make" title=${car.make}>${car.make}</h2>
-              ${ this.data['alreadyInBasket'] ? html`<span aria-label="Product is in basket" title="In basket"><ing-icon icon-id="ing:outline-notification:notificationSuccess"></ing-icon>In basket</span>`: html``}
+              ${ this.data['alreadyInBasket'] ? html`<span class="car__status" aria-label="Product is in basket" title="In basket"><ing-icon icon-id="ing:outline-notification:notificationSuccess"></ing-icon>In basket</span>`: html``}
             </div>
             <dl class="car__details">
               <dt id="model">Model</dt>

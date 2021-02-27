@@ -1,1 +1,1 @@
-export { CarDetailsDialog } from './car-details/CarDetailsDialog'
+export { CarDetailsDialog } from './car-details-dialog/CarDetailsDialog'

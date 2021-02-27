@@ -1,3 +1,3 @@
-import { CarCard } from '../../../../pages/car-shop/src/CarCard.js';
+import { CarCard } from '../CarCard';
 
 window.customElements.define('car-card', CarCard);

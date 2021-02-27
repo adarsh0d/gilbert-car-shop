@@ -35,7 +35,6 @@ export class DialogWindow extends OverlayMixin(LitElement) {
 
   connectedCallback() {
     super.connectedCallback();
-    this.__toggle = () => this._overlayCtrl.toggle();
   }
 
   disconnectedCallback() {

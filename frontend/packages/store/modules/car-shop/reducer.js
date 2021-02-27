@@ -17,14 +17,18 @@ export default function carReducer(state = INITIAL_STATE, action) {
             loaded: true
         };
         case BUY_CAR:
-          const carIndex = state.cars.findIndex((car) => car.id === action.payload.id);
-          const cars = [...state.cars];
-          cars[carIndex].alreadyInBasket = true;
+          const carToBuy = state.cars.find((car) => car.id === action.payload);
           return {
             ...state,
-            cars: cars,
-            carsInBasket: [...state.carsInBasket, action.payload.id],
-            basketValue: state.basketValue + action.payload.carInfo.price
+            cars: state.cars.map(car =>
+              car.id === action.payload ? { ...car, alreadyInBasket: true } : car
+            ),
+            carsInBasket: [...state.carsInBasket, action.payload],
+            basketValue: state.basketValue + carToBuy?.carInfo?.price,
+            carToShow: {
+              ...state.carToShow,
+              alreadyInBasket: true
+            }
         };
         case SHOW_CAR:
           const carToShow = action.payload;

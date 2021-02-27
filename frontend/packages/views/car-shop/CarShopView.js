@@ -2,20 +2,15 @@ import {
   html,
   LitElement,
   ScopedElementsMixin,
-  IngButton,
-  IngIcon
 } from 'ing-web';
 
-import { CarsList, ShoppingBasket } from '../../components';
+import { CarsList } from '../../components';
 import { CarDetailsDialog } from '../../dialogs';
 
 export class CarShopView extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {
     return {
       'cars-list': CarsList,
-      'ing-button': IngButton,
-      'ing-icon': IngIcon,
-      'shopping-basket': ShoppingBasket,
       'car-details-dialog': CarDetailsDialog
     };
   }
@@ -40,8 +35,8 @@ export class CarShopView extends ScopedElementsMixin(LitElement) {
           .showCarDetails=${this.showCarDetails}>
         </cars-list>
         <car-details-dialog
-          id="cars-details"
-          .data=${this.carToShow}
+          class="cars-details"
+          .carToShow=${this.carToShow}
           .opened=${this.opened}
           .closeModal=${this.closeModal}
           .buyCar=${this.buyCar}

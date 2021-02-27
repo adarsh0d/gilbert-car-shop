@@ -1,4 +1,4 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import { html, fixture, expect, assert } from '@open-wc/testing';
 import { stub } from 'sinon';
 
 import '../__element-definitions/car-card.js';
@@ -32,54 +32,57 @@ describe('Licensed Car', () => {
 
   it('should elevate the card', () => {
     const cardEl = el.shadowRoot.querySelector('.card');
-    expect(cardEl.classList.contains('card--elevated')).to.equal(true);
-  });
-
-  it('should call the showCarDetails function', async () => {
-    const cardEl = el.shadowRoot.querySelector('.btn__read');
-    const showCarDetailsStub = stub(el, '_showCarDetails');
-    el.requestUpdate();
-    await el.updateComplete;
-    cardEl.click();
-    expect(showCarDetailsStub).to.have.callCount(1);
+    assert.isTrue(cardEl.classList.contains('card--elevated'));
   });
 
   it('has car make', () => {
     const carMakeEl = el.shadowRoot.querySelector('.car__make');
-    expect(carMakeEl.innerText).to.equal('Volkswagen');
-    expect(carMakeEl.getAttribute('title')).to.equal('Volkswagen');
+    assert.equal(carMakeEl.innerText, 'Volkswagen');
+    assert.equal(carMakeEl.getAttribute('title'), 'Volkswagen');
   });
 
   it('has car model', () => {
     const carModelEl = el.shadowRoot.querySelector('.car__model');
-    expect(carModelEl.innerText).to.equal('Jetta III');
-    expect(carModelEl.getAttribute('title')).to.equal('Jetta III');
+    assert.equal(carModelEl.innerText, 'Jetta III');
+    assert.equal(carModelEl.getAttribute('title'), 'Jetta III');
   });
 
   it('has car price', () => {
     const carPriceEl = el.shadowRoot.querySelector('.car__price');
-    expect(carPriceEl.innerText).to.equal('$12947.52');
-    expect(carPriceEl.getAttribute('title')).to.equal('$12947.52');
+    assert.equal(carPriceEl.innerText, '$12947.52');
+    assert.equal(carPriceEl.getAttribute('title'), '$12947.52');
   });
 
   it('has car year model', () => {
     const carYearModelEl = el.shadowRoot.querySelector('.car__year-model');
-    expect(carYearModelEl.innerText).to.equal('1995');
-    expect(carYearModelEl.getAttribute('title')).to.equal('1995');
+    assert.equal(carYearModelEl.innerText, '1995');
+    assert.equal(carYearModelEl.getAttribute('title'), '1995');
   });
 
   it('has car added date', () => {
     const carDateEl = el.shadowRoot.querySelector('.car__date-added');
-    expect(carDateEl.innerText).to.equal('2018-09-18');
-    expect(carDateEl.getAttribute('title')).to.equal('2018-09-18');
+    assert.equal(carDateEl.innerText, '2018-09-18');
+    assert.equal(carDateEl.getAttribute('title'), '2018-09-18');
   });
 
   it('has car license information', () => {
     const carLicensedEl = el.shadowRoot.querySelector('.car__licensed');
-    expect(carLicensedEl.innerText).to.equal('Licensed');
-    expect(carLicensedEl.getAttribute('title')).to.equal('Licensed');
+    assert.equal(carLicensedEl.innerText, 'Licensed');
+    assert.equal(carLicensedEl.getAttribute('title'), 'Licensed');
   });
-
+  it('is already in Basket', async () => {
+    licensedCar.alreadyInBasket = true;
+    el = await fixture(html`<car-card .data=${licensedCar}></car-card>`);
+    const carStatusEl = el.shadowRoot.querySelector('.car__status');
+    assert.isNotNull(carStatusEl);
+  });
+  it('should call showCarDetails', async () => {
+    let value = false;
+    el = await fixture(html`<car-card .data=${licensedCar} .showCarDetails=${() => { value = true}}></car-card>`);
+    const btnShowEl = el.shadowRoot.querySelector('.btn__read');
+    btnShowEl.click();
+    assert.isTrue(value);
+  });
   it('is accessible', () => {
      expect(el).to.be.accessible();
   });
@@ -89,25 +92,24 @@ describe('Unlicensed car', () => {
   it('has car license information', async () => {
     el = await fixture(html`<car-card .data=${unLicensedCar}></car-card>`);
     const carLicensedEl = el.shadowRoot.querySelector('.car__licensed');
-    expect(carLicensedEl.innerText).to.equal('Unlicensed');
-    expect(carLicensedEl.getAttribute('title')).to.equal('Unlicensed');
+    assert.equal(carLicensedEl.innerText, 'Unlicensed');
+    assert.equal(carLicensedEl.getAttribute('title'), 'Unlicensed');
+  });
+  it('should not elevate the card', () => {
+    const cardEl = el.shadowRoot.querySelector('.card');
+    assert.isFalse(cardEl.classList.contains('card--elevated'));
   });
   it('is accessible', async () => {
     el = await fixture(html`<car-card .data=${unLicensedCar}></car-card>`);
     await expect(el).to.be.accessible();
   });
-
-  it('should not elevate the card', () => {
-    const cardEl = el.shadowRoot.querySelector('.card');
-    expect(cardEl.classList.contains('card--elevated')).to.equal(false);
+  it('should call not showCarDetails', async () => {
+    let value = false;
+    el = await fixture(html`<car-card .data=${unLicensedCar} .showCarDetails=${() => { value = true}}></car-card>`);
+    const btnShowEl = el.shadowRoot.querySelector('.btn__read');
+    btnShowEl.click();
+    assert.isFalse(value);
   });
 
-  it('should not call the showCarDetails function', async () => {
-    const cardEl = el.shadowRoot.querySelector('.btn__read');
-    const showCarDetailsStub = stub(el, '_showCarDetails');
-    el.requestUpdate();
-    await el.updateComplete;
-    cardEl.click();
-    expect(showCarDetailsStub).to.have.callCount(0);
-  });
+
 })

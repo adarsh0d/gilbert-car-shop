@@ -6,6 +6,7 @@ import {
   IngNotificationInline,
   ScopedElementsMixin
 } from 'ing-web';
+
 import { CarCard } from './car-card/CarCard';
 
 export class CarsList extends ScopedElementsMixin(LitElement) {

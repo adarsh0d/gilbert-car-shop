@@ -42,9 +42,9 @@ export class CarShopPage extends ScopedElementsMixin(LitElement) {
                 .cars=${this.cars}
                 .opened=${this.modalOpen}
                 .carToShow=${this.carToShow}
-                .showCarDetails=${(car) => this.showCarDetails(car)}
-                .closeModal=${() => this.closeModal(false)}
-                .buyCar=${() => this.buyCar(this.carToShow)}
+                .showCarDetails=${this.showCarDetails}
+                .closeModal=${this.closeModal}
+                .buyCar=${this.buyCar}
               >
               </car-shop-view>
               `: html `<ing-spinner></ing-spinner>`
