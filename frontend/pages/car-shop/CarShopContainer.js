@@ -9,62 +9,55 @@ import {
   spacer64,
   white,
   spacer24,
-  IngButton,
   font19Mixin,
-  IngIcon
+  IngSpinner,
 } from 'ing-web';
-import {connect} from "pwa-helpers/connect-mixin";
-import { CarDetailsDialog } from '../../../packages/dialogs';
-import { buyCar, setAllCars } from '../../../packages/store/modules/car-shop/actions';
-import store from '../../../packages/store/store';
-import { CarShopView } from '../../../packages/views';
+import { connect } from "pwa-helpers/connect-mixin";
+import { CarDetailsDialog } from '../../packages/dialogs';
+import { buyCar, setAllCars, showCarDetails, setCarModal } from '../../packages/store/modules/car-shop/actions';
+import store from '../../packages/store/store';
+import { CarShopView } from '../../packages/views';
 
 export class CarShopContainer extends connect(store)(ScopedElementsMixin(LitElement)) {
   static get scopedElements() {
     return {
       'car-shop-view': CarShopView,
-      'car-details-dialog': CarDetailsDialog
+      'car-details-dialog': CarDetailsDialog,
+      'ing-spinner': IngSpinner
     };
   }
   static get properties() {
     return {
       carsInBasket: {type: Array},
-      basketValue: {type: Number},
       carToShow: {type: Object},
-      cars: {type: Array}
+      cars: {type: Array},
+      modalOpen: {type: Boolean}
     };
   }
   constructor() {
     super();
-    this.basketValue = 0;
-    this.carsInBasket = []
   }
 
   async connectedCallback() {
     super.connectedCallback();
     this._fetchData();
   }
+
   async _buyCar() {
     store.dispatch(buyCar(this.carToShow));
   }
-  async _showCarDetails(car) {
-    this.carToShow = car;
-    const basketIndex = this.carsInBasket.findIndex((car) => this.carToShow.id === car);
-    if(basketIndex > -1) {
-      this.carToShow['alreadyInBasket'] = true;
-    }
-    this.requestUpdate();
-    await this.updateComplete;
-    const modalEl = this.shadowRoot.querySelector('#cars-details');
-    modalEl.show();
+
+  _showCarDetails(car) {
+    store.dispatch(showCarDetails(car));
   }
 
   stateChanged({carReducer}) {
-    const { carsInBasket, basketValue, cars, loaded } = carReducer;
-    this.carsInBasket = carsInBasket;
-    this.basketValue = basketValue;
+    const { cars, loaded, carsInBasket, modalOpen, carToShow } = carReducer;
     this.cars = cars;
     this.loaded = loaded;
+    this.carsInBasket = carsInBasket;
+    this.modalOpen = modalOpen;
+    this.carToShow = carToShow;
   }
 
   async _fetchData() {
@@ -77,22 +70,24 @@ export class CarShopContainer extends connect(store)(ScopedElementsMixin(LitElem
     }
   }
 
+  _closeModal() {
+   store.dispatch(setCarModal(false))
+  }
+
   render() {
     return html`
       ${this.loaded ? html `
         <car-shop-view
-          .carsInBasket=${this.carsInBasket}
-          .basketValue=${this.basketValue}
           .cars=${this.cars}
-          .showCarDetails=${this._showCarDetails.bind(this)}>
+          .showCarDetails=${this._showCarDetails.bind(this)}
+          .opened=${this.modalOpen}
+          .closeModal=${this._closeModal.bind(this)}
+          .buyCar=${this._buyCar.bind(this)}
+          .carToShow=${this.carToShow}
+        >
         </car-shop-view>
-      `: html ``}
-
-      <car-details-dialog
-        id="cars-details"
-        .data=${this.carToShow}
-        .buyCar=${this._buyCar.bind(this)}
-      ></car-details-dialog>
+      `: html `<ing-spinner></ing-spinner>`
+      }
     `;
   }
 

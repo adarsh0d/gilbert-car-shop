@@ -19,7 +19,9 @@ export class CarDetailsDialog extends ScopedElementsMixin(LitElement) {
   static get properties() {
     return {
       data: { type: Object },
-      buyCar: { type: Function }
+      buyCar: { type: Function },
+      closeModal: {type: Function},
+      opened: { type: Boolean }
     };
   }
 
@@ -37,19 +39,9 @@ export class CarDetailsDialog extends ScopedElementsMixin(LitElement) {
     this.data = {};
   }
 
-  show() {
-   const dialogEl = this.shadowRoot.querySelector('.car-details__dialog');
-   dialogEl.opened = true;
-  }
-
-  _handleClose() {
-    const dialogEl = this.shadowRoot.querySelector('.car-details__dialog');
-    dialogEl.opened = false;
-  }
-
   render() {
     return html`
-        <dialog-window class="car-details__dialog">
+        <dialog-window class="car-details__dialog" .opened=${this.opened}>
           <ing-dialog-frame slot="content">
               <div slot="header">
                 <h3 class="car__make" aria-label="Make" title=${this.data?.carInfo?.make}>${this.data?.carInfo?.make}</h3>
@@ -79,7 +71,7 @@ export class CarDetailsDialog extends ScopedElementsMixin(LitElement) {
                   text
                   class="close-modal-btn"
                   aria-label="Click to close popup"
-                  @click="${(e) => { this._handleClose(e)}}">Close
+                  @click="${() => { this.closeModal()}}">Close
                 </ing-button>
               </div>
           </ing-dialog-frame>
