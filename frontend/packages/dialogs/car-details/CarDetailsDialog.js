@@ -1,15 +1,10 @@
 import {
-  css,
-  font16BoldMixin,
   html,
   IngDialogFrame,
   IngButton,
   IngIcon,
   LitElement,
-  OverlayMixin,
-  withModalDialogConfig,
   ScopedElementsMixin,
-  IngDialog,
 } from 'ing-web';
 
 import { DialogWindow, CarDetails } from '../../components';

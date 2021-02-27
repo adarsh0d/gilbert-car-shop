@@ -1,15 +1,7 @@
 import {
-  cardComponentStyle,
-  css,
   html,
-  elevation1Mixin,
   LitElement,
   ScopedElementsMixin,
-  spacer32,
-  spacer64,
-  white,
-  spacer24,
-  font19Mixin,
   IngSpinner,
 } from 'ing-web';
 import { connect } from "pwa-helpers/connect-mixin";
@@ -91,37 +83,6 @@ export class CarShopContainer extends connect(store)(ScopedElementsMixin(LitElem
     `;
   }
 
-  static get styles() {
-    return css`
-      ${cardComponentStyle}
-      .header {
-        position: fixed;
-        top: 0;
-        z-index: 1;
-        width: 100%;
-        background-color: ${white};
-        height: ${spacer64};
-        min-height: ${spacer64};
-        padding: 20px;
-        box-sizing: border-box;
-        ${elevation1Mixin()}
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .header h1 {
-        margin: 0;
-        flex: 1;
-        font-size: ${spacer24}
-      }
-      .header .total-value {
-        font: ${font19Mixin()}
-      }
-      .content {
-        margin: 90px ${spacer32}
-      }
-    `;
-  }
   disconnectedCallback() {
     super.disconnectedCallback();
     this._storeUnsubscribe();
