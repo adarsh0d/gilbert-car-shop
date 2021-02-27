@@ -19,7 +19,7 @@ export class CarCard extends ScopedElementsMixin(LitElement) {
   static get properties() {
     return {
       data: { type: Object },
-      showCarDetails: { type: Function, attribute: false }
+      showCarDetails: { type: Function }
     };
   }
 

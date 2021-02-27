@@ -9,3 +9,7 @@
 
 **v3.0**
 - feat: Able to put car in shopping basket and show total value
+
+
+**v4.0**
+- feat: refactored code to make project scalable

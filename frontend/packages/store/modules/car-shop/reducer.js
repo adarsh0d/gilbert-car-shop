@@ -3,7 +3,7 @@ import { BUY_CAR, SET_CARS, SHOW_CAR, MODAL_OPEN } from "./actions";
 const INITIAL_STATE = {
     cars: [],
     carsInBasket: [],
-    carToShow: {},
+    carToShow: null,
     basketValue: 0,
     loaded: false,
     modalOpen: false

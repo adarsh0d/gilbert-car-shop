@@ -12,7 +12,6 @@ import {
 } from 'ing-web';
 import { connect } from 'pwa-helpers/connect-mixin';
 import store from './packages/store/store';
-
 registerDefaultIconsets();
 
 export class App extends connect(store)(LitElement) {
@@ -63,7 +62,6 @@ export class App extends connect(store)(LitElement) {
       </div>
     `
   }
-
 
   static get styles() {
     return css`
