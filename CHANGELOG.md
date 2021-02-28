@@ -12,3 +12,6 @@
 
 **v4.0**
 - feat: refactored code to make project scalable
+
+**v5.0**
+- feat: add redux thunk middle ware for ajax calls in store
