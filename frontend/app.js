@@ -1,10 +1,7 @@
 import {
   html,
   LitElement,
-  registerDefaultIconsets,
 } from 'ing-web';
-
-registerDefaultIconsets();
 
 export class App extends LitElement {
   constructor() {

@@ -7,8 +7,10 @@ import {
   spacer64,
   white,
   spacer24,
+  registerDefaultIconsets,
 } from 'ing-web';
 
+registerDefaultIconsets();
 export class AppFrame extends LitElement {
   constructor() {
     super()
