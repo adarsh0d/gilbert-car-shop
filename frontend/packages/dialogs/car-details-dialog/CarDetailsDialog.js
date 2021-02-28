@@ -5,9 +5,10 @@ import {
   IngIcon,
   LitElement,
   ScopedElementsMixin,
+  IngDialog,
 } from 'ing-web';
 
-import { DialogWindow, CarDetails } from '../../components';
+import { CarDetails } from '../../components';
 
 export class CarDetailsDialog extends ScopedElementsMixin(LitElement) {
 
@@ -25,7 +26,7 @@ export class CarDetailsDialog extends ScopedElementsMixin(LitElement) {
       'ing-button': IngButton,
       'ing-icon': IngIcon,
       'ing-dialog-frame': IngDialogFrame,
-      'dialog-window': DialogWindow,
+      'ing-dialog': IngDialog,
       'car-details': CarDetails
     };
   }
@@ -36,7 +37,7 @@ export class CarDetailsDialog extends ScopedElementsMixin(LitElement) {
 
   render() {
     return html`
-        <dialog-window class="car-details__dialog" .opened=${this.opened}>
+        <ing-dialog class="car-details__dialog" .opened=${this.opened}>
           <ing-dialog-frame slot="content">
               <div slot="header">
                 <h3 class="car__make" aria-label="Make" title=${this.carToShow?.carInfo?.make}>${this.carToShow?.carInfo?.make}</h3>
@@ -68,7 +69,7 @@ export class CarDetailsDialog extends ScopedElementsMixin(LitElement) {
                 </ing-button>
               </div>
           </ing-dialog-frame>
-      </dialog-window>`
+      </ing-dialog>`
   }
 
 }

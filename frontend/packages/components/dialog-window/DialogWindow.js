@@ -13,10 +13,6 @@ export class DialogWindow extends OverlayMixin(LitElement) {
     return this.querySelector('[slot="content"]');
   }
 
-  get _overlayInvokerNode() {
-    return Array.from(this.children).find(child => child.slot === 'invoker');
-  }
-
   get _overlayContentWrapperNode() {
     return this.shadowRoot.querySelector('#overlay-content-node-wrapper');
   }
@@ -26,7 +22,6 @@ export class DialogWindow extends OverlayMixin(LitElement) {
     return new OverlayController({
       placementMode: 'global',
       contentNode: this._overlayContentNode,
-      invokerNode: this._overlayInvokerNode,
       contentWrapperNode: this._overlayContentWrapperNode,
       handlesAccessibility: true,
       hasBackdrop: true

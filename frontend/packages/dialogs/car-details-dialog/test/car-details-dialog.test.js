@@ -23,15 +23,15 @@ let el;
 describe('Car Details Popup', () => {
   it('should open the dialog', async () => {
     el = await fixture(html`<car-details-dialog .carToShow=${car} .opened=${true}></car-details-dialog>`);
-    assert.isTrue(el.shadowRoot.querySelector('dialog-window').opened);
+    assert.isTrue(el.shadowRoot.querySelector('[data-tag-name="ing-dialog"]').opened);
   })
   it('should close the dialog', async () => {
     el = await fixture(html`<car-details-dialog .carToShow=${car} .opened=${false}></car-details-dialog>`);
-    assert.isFalse(el.shadowRoot.querySelector('dialog-window').opened);
+    assert.isFalse(el.shadowRoot.querySelector('[data-tag-name="ing-dialog"]').opened);
   });
   it('should close the dialog', async () => {
     el = await fixture(html`<car-details-dialog .carToShow=${car} .opened=${false}></car-details-dialog>`);
-    assert.isFalse(el.shadowRoot.querySelector('dialog-window').opened);
+    assert.isFalse(el.shadowRoot.querySelector('[data-tag-name="ing-dialog"]').opened);
   });
   it('should show car details', async () => {
     el = await fixture(html`<car-details-dialog .carToShow=${car} .opened=${true}></car-details-dialog>`);
