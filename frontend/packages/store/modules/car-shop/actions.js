@@ -1,4 +1,3 @@
-import store from '../../store';
 export const BUY_CAR = 'BUY_CAR';
 export const SET_CARS = 'SET_CARS';
 export const SHOW_CAR = 'SHOW_CAR';
@@ -30,12 +29,12 @@ export const setCarModal = modalOpen => {
   }
 }
 
-export const getCars = async () => {
-  const response = await fetch('/search/cars');
-  if (response.ok) {
-    const cars = await response.json();
-    store.dispatch(setAllCars(cars));
-  } else {
-    console.log('Error fetching data!')
+export const getCars = () => {
+  return async function(dispatch) {
+    const response = await fetch('/search/cars');
+    if (response.ok) {
+      const cars = await response.json();
+      return dispatch(setAllCars(cars));
+    }
   }
 }
