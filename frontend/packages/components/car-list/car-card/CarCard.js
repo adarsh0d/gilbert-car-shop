@@ -25,7 +25,6 @@ export class CarCard extends ScopedElementsMixin(LitElement) {
 
   constructor() {
     super();
-    this.data = null;
   }
 
   render() {

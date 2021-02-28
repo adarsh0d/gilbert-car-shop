@@ -26,7 +26,6 @@ export class CarsList extends ScopedElementsMixin(LitElement) {
 
   constructor() {
     super();
-    this.cars = [];
   }
 
   render() {

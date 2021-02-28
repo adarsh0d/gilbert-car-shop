@@ -35,6 +35,8 @@ export const getCars = () => {
     if (response.ok) {
       const cars = await response.json();
       return dispatch(setAllCars(cars));
+    } else {
+      console.log('Error');
     }
   }
 }

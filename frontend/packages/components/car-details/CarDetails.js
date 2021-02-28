@@ -13,7 +13,6 @@ export class CarDetails extends LitElement {
   }
   constructor() {
     super();
-    this.data = {};
   }
 
   render() {
